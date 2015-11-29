@@ -4,7 +4,7 @@
   "description": "Generic web server setup, intended to be used for React applications",
   "main": "src/index.html",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Albert Kim",
@@ -14,10 +14,21 @@
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
+    "bootstrap": "^3.3.6",
+    "css-loader": "^0.23.0",
     "file-loader": "^0.8.5",
+    "font-awesome": "^4.4.0",
+    "font-awesome-webpack": "0.0.4",
+    "history": "^1.13.1",
+    "jquery": "^2.1.4",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-hot-loader": "^1.3.0",
+    "react-router": "^1.0.0",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   }

@@ -1,14 +1,14 @@
 module.exports = {
   context: __dirname,
-  
-  entry: ["./src/index.html", "./src/index.jsx"],
+
+  entry: ["./src/index.html", "./src/index.js"],
 
   output: {
     filename: "index.js",
     path: __dirname + "/build",
     publicPath: ""
   },
-  
+
   module: {
     loaders: [
       {

@@ -3,11 +3,11 @@ import { AuthService } from '../services/AuthService';
 
 export class Login extends React.Component {
 	login() {
-		var email = this.refs.email.value;
-		var password = this.refs.password.value;
+		var email = this.refs.email.value
+		var password = this.refs.password.value
 		AuthService.login(email, password).then(token => {
-			location.href= '/';
-		});
+			location.href= '/'
+		})
 	}
 
 	render() {
@@ -30,4 +30,4 @@ export class Login extends React.Component {
 			</div>
 		);
 	}
-};
+}

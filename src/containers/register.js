@@ -1,14 +1,14 @@
 import React from 'react';
+import { AuthService } from '../services/AuthService';
 
 export class Register extends React.Component {
 	register() {
-		var email = this.refs.email.value;
-		var password = this.refs.password.value;
+		var email = this.refs.email.value
+		var password = this.refs.password.value
 
-		// TODO: Replace with custom functionality
-		window.sessionStorage.email = email;
-		window.sessionStorage.token = 'token';
-		location.href= '/';
+		AuthService.register(email, password).then(token => {
+			location.href= '/'
+		});
 	}
 
 	render() {
@@ -29,6 +29,6 @@ export class Register extends React.Component {
 					<button className="btn btn-default" onClick={this.register.bind(this)}>Submit</button>
 				</div>
 			</div>
-		);
+		)
 	}
-};
+}

@@ -1,34 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import NavigationBar from './components/NavigationBar';
-import Bootstrap from './libraries/bootstrap.min.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, IndexRoute, Link } from 'react-router'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+// import './libraries/bootstrap.css'
 
-import { Home } from './views/home';
-import { Register } from './views/register';
-import { Login } from './views/login';
-import { About } from './views/about';
-import { Contact } from './views/contact';
-import { Profile } from './views/profile';
-
-const App = React.createClass({
-	render() {
-		return (
-			<div>
-				<NavigationBar />
-				<div className="container">
-					{ this.props.children }
-				</div>
-			</div>
-		);
-	}
-});
+import { App } from './containers/App'
+import { NavigationBar } from './components/NavigationBar'
+import { Home } from './containers/home'
+import { TodoContainer } from './containers/todoContainer'
+import { Register } from './containers/register'
+import { Login } from './containers/login'
+import { About } from './containers/about'
+import { Contact } from './containers/contact'
+import { Profile } from './containers/profile'
 
 ReactDOM.render((
 	<Router history={ createBrowserHistory() }>
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
+			<Route path="todo" component={ TodoContainer } />
 			<Route path="about" component={ About } />
 			<Route path="contact" component={ Contact } />
 			<Route path="login" component={ Login } />

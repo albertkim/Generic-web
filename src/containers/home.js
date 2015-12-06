@@ -1,5 +1,13 @@
 import React from 'react';
-import { Todo } from '../components/Todo'
+
+var defaultTodo = [
+  {
+    text: 'This is a default todo',
+  },
+  {
+    text: 'This is another todo'
+  }
+]
 
 export class Home extends React.Component {
   render() {
@@ -7,7 +15,6 @@ export class Home extends React.Component {
 			<div className="container">
         <h1>Home</h1>
         <hr />
-        <Todo />
 			</div>
 		);
 	}

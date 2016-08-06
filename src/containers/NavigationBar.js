@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { AuthService } from '../services/AuthService';
+import React from 'react'
+import { Link } from 'react-router'
+import { AuthService } from '../services/AuthService'
 
 export class NavigationBar extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       email: null
     }
@@ -17,32 +17,32 @@ export class NavigationBar extends React.Component {
         email: user.email
       })
     }).catch(() => {
-      this.setState({});
-    });
+      this.setState({})
+    })
   }
 
   logout() {
     AuthService.logout().then(() => {
-      window.location.href = '/';
-    });
+      window.location.href = '/'
+    })
   }
 
   render() {
-    var profileSection;
+    var profileSection
     if (AuthService.isLoggedIn()) {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/profile">{ this.state.email }</Link></li>
           <li><a href="" onClick={ this.logout }>Logout</a></li>
         </ul>
-      );
+      )
     } else {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/register">Register</Link></li>
         </ul>
-      );
+      )
     }
 
     return(
@@ -71,7 +71,7 @@ export class NavigationBar extends React.Component {
           </div>
         </div>
       </nav>
-    );
+    )
   }
 
 }

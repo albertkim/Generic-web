@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
-import 'bootstrap-loader'
+require('bootstrap-loader')
+require('!style!css!sass!./styles/main.scss')
 
 import { NavigationBar } from './containers/NavigationBar'
-import { Home } from './containers/home'
+import { Home } from './containers/Home'
 import { Register } from './containers/register'
 import { Login } from './containers/login'
 import { About } from './containers/about'
@@ -16,7 +17,7 @@ const App = React.createClass({
     return (
       <div>
         <NavigationBar />
-        <div className="container">
+        <div>
           { this.props.children }
         </div>
       </div>

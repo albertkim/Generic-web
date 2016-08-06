@@ -13,7 +13,7 @@ module.exports = {
   output: {
     filename: "index.js",
     path: __dirname + "/build",
-    publicPath: ""
+    publicPath: "/"
   },
 
   module: {
@@ -28,7 +28,9 @@ module.exports = {
         loader: "file?name=index.html",
       },
       { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+      { test: /\.scss$/, loader: ["style", "css", "sass"] },
+      // { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader' }
     ]
   },
 

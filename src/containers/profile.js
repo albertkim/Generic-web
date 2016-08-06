@@ -7,6 +7,6 @@ export class Profile extends React.Component {
 				<h1>Profile</h1>
         <hr />
 			</div>
-		);
+		)
 	}
 }

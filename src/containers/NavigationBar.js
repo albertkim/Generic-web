@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { AuthService } from '../../services/AuthService';
+import { AuthService } from '../services/AuthService';
 
 export class NavigationBar extends React.Component {
 
@@ -59,11 +59,15 @@ export class NavigationBar extends React.Component {
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to="/">Home</Link></li>
+              <li><Link to="/">Home</Link></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              { profileSection }
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
               <li><Link to="/about">About</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>
-            { profileSection }
           </div>
         </div>
       </nav>

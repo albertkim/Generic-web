@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import NavigationBar from './components/NavigationBar';
-import Bootstrap from './libraries/bootstrap.min.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import NavigationBar from './components/NavigationBar'
+import 'jquery'
+import 'bootstrap-loader'
 
-import { Home } from './views/home';
-import { Register } from './views/register';
-import { Login } from './views/login';
-import { About } from './views/about';
-import { Contact } from './views/contact';
-import { Profile } from './views/profile';
+import { Home } from './views/home'
+import { Register } from './views/register'
+import { Login } from './views/login'
+import { About } from './views/about'
+import { Contact } from './views/contact'
+import { Profile } from './views/profile'
 
 const App = React.createClass({
 	render() {
@@ -21,12 +21,12 @@ const App = React.createClass({
 					{ this.props.children }
 				</div>
 			</div>
-		);
+		)
 	}
-});
+})
 
 ReactDOM.render((
-	<Router history={ createBrowserHistory() }>
+	<Router history={ browserHistory }>
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
 			<Route path="about" component={ About } />
@@ -37,4 +37,4 @@ ReactDOM.render((
 		</Route>
 	</Router>
 	), document.getElementById('app')
-);
+)

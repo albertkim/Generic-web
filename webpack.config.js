@@ -1,7 +1,14 @@
+var webpack = require('webpack')
+
 module.exports = {
   context: __dirname,
 
-  entry: ["./src/index.html", "./src/index.js"],
+  entry: [
+    "webpack-dev-server/client?http://0.0.0.0:8080",
+    "webpack/hot/only-dev-server",
+    "./src/index.html", 
+    "./src/index.js"
+  ],
 
   output: {
     filename: "index.js",
@@ -17,16 +24,24 @@ module.exports = {
         loaders: ["babel-loader?presets[]=react,presets[]=es2015"]
       },
       {
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        loaders: ["babel-loader?presets[]=react,presets[]=es2015"]
-      },
-      {
         test: /index\.html$/,
         loader: "file?name=index.html",
       },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 }

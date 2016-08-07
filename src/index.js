@@ -5,6 +5,7 @@ require('bootstrap-loader')
 require('!style!css!sass!./styles/main.scss')
 
 import { NavigationBar } from './containers/NavigationBar'
+import { Footer } from './containers/Footer'
 import { Home } from './containers/Home'
 import { Register } from './containers/register'
 import { Login } from './containers/login'
@@ -12,7 +13,7 @@ import { About } from './containers/about'
 import { Contact } from './containers/contact'
 import { Profile } from './containers/profile'
 
-const App = React.createClass({
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -20,10 +21,11 @@ const App = React.createClass({
         <div>
           { this.props.children }
         </div>
+        <Footer />
       </div>
     )
   }
-})
+}
 
 ReactDOM.render((
   <Router history={ browserHistory }>

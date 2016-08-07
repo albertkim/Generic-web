@@ -63,9 +63,6 @@ export class NavigationBar extends React.Component {
             <Link to="/" className="navbar-brand">Generic-web</Link>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
-            <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-            </ul>
             <ul className="nav navbar-nav navbar-right">
               { profileSection }
             </ul>

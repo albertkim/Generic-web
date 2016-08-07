@@ -46,7 +46,12 @@ export class NavigationBar extends React.Component {
     }
 
     return(
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default" style={{ 
+        position: 'fixed',
+        top: 0,
+        margin: 0,
+        width: '100%'
+      }}>
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

@@ -1,6 +1,27 @@
 @import 'home';
 @import 'footer';
+@import 'helpers';
 
 html * {
   font-family: Lato;
+}
+
+$primaryColor: darkOrange;
+$secondaryColor: orange;
+
+.primary {
+  color: $primaryColor;
+}
+
+.btn-primary {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  &:hover {
+    background-color: $secondaryColor;
+    border-color: $secondaryColor;
+  }
+}
+
+.secondary {
+  color: $primaryColor;
 }

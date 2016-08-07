@@ -32,4 +32,21 @@
     height: 30em;
     padding: 3em;
   }
+
+  #what-we-offer {
+    height: 20em;
+    padding: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #sign-up {
+    height: 20em;
+    padding: 3em;
+    padding-bottom: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }

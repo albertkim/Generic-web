@@ -48,17 +48,25 @@ export class Home extends React.Component {
             <div>
               <h2>There are thousands of users already on our platform</h2>
               <br />
+              <p>We know that creating web applications is difficult. This project is set up to comunicate with Generic-Api to offer a complete application setup.</p>
+              <br />
               <button className='btn btn-primary'>Sign up now</button>
             </div>
           </div>
           <div className='col-xs-6 col-sm-6' id='side-image' />
         </div>
 
-        <div className='row text-center' style={{ height: '20em' }}>
-          <p>Check out these screenshots!</p>
+        <div className='row' id='what-we-offer' >
+          <div className='col-sm-10 col-sm-offset-2'>
+            <h2 className='primary'>What we offer</h2>
+            <br />
+            <p>This thing number 1</p>
+            <p>This thing number 2</p>
+            <p>This thing number 3</p>
+          </div>
         </div>
 
-        <div className='row' >
+        <div className='row'>
          <div className='col-xs-6 col-sm-6' id='side-image' />
           <div className='col-xs-6 col-sm-4' id='side-text'>
             <div>
@@ -69,7 +77,15 @@ export class Home extends React.Component {
           </div>
         </div>
 
-        <div className='row'>
+        <div className='row text-center' id='sign-up'>
+          <div className='col-sm-4 col-sm-offset-4'>
+            <h2 className='m-b-1'>Sign up for our beta!</h2>
+            <input type='text' className='form-control m-b-1' placeholder='Email' />
+            <button className='btn btn-primary'>Submit</button>
+          </div>
+        </div>
+
+        <div className='row' id='contact-us'>
 
         </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export class Home extends React.Component {
   render() {
@@ -17,14 +17,18 @@ export class Home extends React.Component {
           </div>
         </div>
 
-        <div className='row' style={{ paddingTop: '5em', paddingBottom: '5em' }} >
+        <div className='row text-center'>
+          <h2 className='m-t-2'>How we can help</h2>
+        </div>
+
+        <div className='row' style={{ paddingTop: '3em', paddingBottom: '5em' }} >
           <div className='container text-center'>
             <div className='col-sm-4 col-md-4'>
               <div className='row'>
                 <span className='glyphicon glyphicon-send' style={{ fontSize: '5em' }} />
               </div>
               <br />
-              <p>Point 1</p>
+              <p>Develop your web application</p>
             </div>
             <div className='col-sm-4 col-md-4'>
               <div className='row'>

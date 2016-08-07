@@ -1,48 +1,6 @@
+@import 'home';
+@import 'footer';
+
 html * {
   font-family: Lato;
-}
-
-#home #hero {
-  display: flex;
-  background-image: url('../images/space.jpg');
-  background-size: cover;
-  height: 55em;
-  color: white;
-  padding-top: 40em;
-  justify-content: center;
-}
-
-#home #hero-contents {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#home .horizontal-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-#home #side-image {
-  background-image: url('../images/space.jpg');
-  background-size: cover;
-  height: 30em;
-}
-
-#home #side-text {
-  display: flex;
-  align-items: center;
-  height: 30em;
-  padding: 3em;
-}
-
-#footer {
-  height: 40em;
-  padding-top: 5em;
-  padding-bottom: 5em;
-  background-color: lightgray;
-}
-
-#footer #footer-left {
-  padding-top: 2em;
 }

@@ -32,6 +32,8 @@ export class NavigationBar extends React.Component {
     if (AuthService.isLoggedIn()) {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/profile">{ this.state.email }</Link></li>
           <li><a href="" onClick={ this.logout }>Logout</a></li>
         </ul>
@@ -39,19 +41,16 @@ export class NavigationBar extends React.Component {
     } else {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/register">Register</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/login"><button className='btn btn-default'>Login</button></Link></li>
+          <li><Link to="/register"><button className='btn btn-primary'>Register</button></Link></li>
         </ul>
       )
     }
 
     return(
-      <nav className="navbar navbar-default" style={{ 
-        position: 'fixed',
-        top: 0,
-        margin: 0,
-        width: '100%'
-      }}>
+      <nav className="navbar navbar-default navbar-fixed-top" id='navigation-bar'>
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -65,10 +64,6 @@ export class NavigationBar extends React.Component {
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav navbar-right">
               { profileSection }
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
         </div>

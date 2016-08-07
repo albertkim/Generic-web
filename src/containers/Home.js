@@ -9,6 +9,7 @@ export class Home extends React.Component {
           <div className='text-center' id='hero-contents'>
             <h2>Generic web project</h2>
             <p>Works with the Generic-api project</p>
+            <br />
             <div className='horizontal-buttons'>
               <button className='btn btn-primary'>Sign up here</button>
               <button className='btn btn-default'>Request a demo</button>
@@ -59,7 +60,7 @@ export class Home extends React.Component {
 
         <div className='row' >
          <div className='col-xs-6 col-sm-6' id='side-image' />
-          <div className='col-xs-6 col-sm-6' id='side-text'>
+          <div className='col-xs-6 col-sm-4' id='side-text'>
             <div>
               <h2>There are thousands of users already on our platform</h2>
               <br />

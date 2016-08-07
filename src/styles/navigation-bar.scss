@@ -1,0 +1,8 @@
+#navigation-bar {
+  $height: 10em;
+  height: $height;
+
+  li {
+    height: $height;
+  }
+}

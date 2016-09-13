@@ -1,13 +1,13 @@
 export class AuthService {
 
   static isLoggedIn() {
-    return window.sessionStorage.token != null
+    return window.sessionStorage['token'] != null
   }
 
-  static getCurrentUser() {
+  static getCurrentUser() : any {
     // TODO: write custom implementation
     return new Promise((resolve, reject) => {
-      if (window.sessionStorage.token == null) {
+      if (window.sessionStorage['token'] == null) {
         reject()
       } else {
         resolve({
@@ -17,11 +17,11 @@ export class AuthService {
     })
   }
 
-  static login(email, password) {
+  static login(email: string, password: string) : any {
     // TODO: write custom implementation
     return new Promise((resolve, reject) => {
       var token = 'token';
-      window.sessionStorage.token = token;
+      window.sessionStorage['token'] = token;
       resolve({
         token: token
       })
@@ -36,11 +36,11 @@ export class AuthService {
     })
   }
 
-  static register(email, password) {
+  static register(email: string, password: string) : any {
     // TODO: write custom implementation
     return new Promise((resolve, reject) => {
       var token = 'token'
-      window.sessionStorage.token = token;
+      window.sessionStorage['token'] = token;
       resolve({
         token: token
       })

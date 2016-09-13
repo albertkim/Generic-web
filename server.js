@@ -22,7 +22,7 @@ new WebpackDevServer(
 //   /* Use React Router */
 //   var ReactRouter = require('react-router');
 //   var match = ReactRouter.match;
-//   var routes = require('./src/routes.js').routes
+//   var routes = require('./app/routes.js').routes
 
 //   match({routes: routes, location: req.url}, function(error, redirectLocation, renderProps) {
 //     if (error) {

@@ -1,11 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router'
-import { AuthService } from '../services/AuthService'
+import * as React from 'react'
+import {Link} from 'react-router'
+import {AuthService} from '../services/AuthService'
 
-export class NavigationBar extends React.Component {
+interface NavigationBarState {
+  email?: string
+}
 
-  constructor(props) {
-    super(props)
+export class NavigationBar extends React.Component<{}, NavigationBarState> {
+
+  constructor() {
+    super()
     this.state = {
       email: null
     }
@@ -28,7 +32,7 @@ export class NavigationBar extends React.Component {
   }
 
   render() {
-    var profileSection
+    let profileSection: JSX.Element
     if (AuthService.isLoggedIn()) {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">

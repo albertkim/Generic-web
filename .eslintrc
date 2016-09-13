@@ -6,10 +6,11 @@
     "ecmaVersion": 7,
     "sourceType": "module",
     "ecmaFeatures": {
-        "jsx": true
+      "jsx": true
     }
   },
   "rules": {
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "no-unused-vars": "warn"
   }
 }

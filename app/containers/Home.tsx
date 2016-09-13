@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-export class Home extends React.Component {
+export class Home extends React.Component<any, any> {
   render() {
     return (
       <div id='home'>

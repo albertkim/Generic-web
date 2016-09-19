@@ -1,29 +1,25 @@
 import * as React from 'react'
 import {Link} from 'react-router'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {User} from '../models/User'
 import {AuthService} from '../services/AuthService'
 
-interface NavigationBarState {
-  email?: string
+interface INavigationBarProps {
+  user?: User
 }
 
-export class NavigationBar extends React.Component<{}, NavigationBarState> {
-
-  constructor() {
-    super()
-    this.state = {
-      email: null
-    }
+function mapStateToProps(state: any) : INavigationBarProps {
+  return {
+    user: state.user
   }
+}
 
-  componentDidMount() {
-    AuthService.getCurrentUser().then(user => {
-      this.setState({
-        email: user.email
-      })
-    }).catch(() => {
-      this.setState({})
-    })
-  }
+function mapDispatchToProps(dispatch: any) {
+  return {}
+}
+
+class NavigationBar extends React.Component<INavigationBarProps, void> {
 
   logout() {
     AuthService.logout().then(() => {
@@ -84,3 +80,5 @@ export class NavigationBar extends React.Component<{}, NavigationBarState> {
   }
 
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

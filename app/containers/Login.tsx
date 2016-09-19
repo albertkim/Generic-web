@@ -12,22 +12,41 @@ export class Login extends React.Component<{}, {}> {
 
 	render() {
 		return (
-			<div className="container">
-				<h1>Login</h1>
-				<hr />
+			<div className='container-fluid'>
+				<div className="row">
+					<h1>Login</h1>
+					<hr />
 
-				<div className="col-md-6">
-					<div className="form-group">
-						<label>Email</label>
-						<input type="email" className="form-control" ref="email" />
+					<div className="col-md-6">
+						<div className="form-group">
+							<label>Email</label>
+							<input type="email" className="form-control" ref="email" />
+						</div>
+						<div className="form-group">
+							<label>Password</label>
+							<input type="password" className="form-control" ref="password" />
+						</div>
+						<button className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
 					</div>
-					<div className="form-group">
-						<label>Password</label>
-						<input type="password" className="form-control" ref="password" />
+				</div>
+
+				<div className="row">
+					<h1>Register</h1>
+					<hr />
+
+					<div className="col-md-6">
+						<div className="form-group">
+							<label>Email</label>
+							<input type="email" className="form-control" ref="email" />
+						</div>
+						<div className="form-group">
+							<label>Password</label>
+							<input type="password" className="form-control" ref="password" />
+						</div>
+						<button className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
 					</div>
-					<button className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
 				</div>
 			</div>
-		);
+		)
 	}
 }

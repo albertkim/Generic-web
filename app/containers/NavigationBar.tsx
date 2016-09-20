@@ -41,7 +41,7 @@ class NavigationBar extends React.Component<NavigationBarProps, void> {
           <li><Link to='/about'>About</Link></li>
           <li><Link to='/contact'>Contact</Link></li>
           <li><Link to='/profile'>{this.props.user.email}</Link></li>
-          <li><a href='#' onClick={() => this.logout()}>Logout</a></li>
+          <li><a href='#' onClick={() => this.logout()} style={{marginRight: '2em'}}>Logout</a></li>
           {/*<li><a href='' onClick={() => this.logout()}>Logout</a></li>*/}
         </ul>
       )
@@ -65,7 +65,7 @@ class NavigationBar extends React.Component<NavigationBarProps, void> {
       )
     }
 
-    return(
+    return (
       <nav className='navbar navbar-default navbar-fixed-top' id='navigation-bar'>
         <div className='container-fluid'>
           <div className='navbar-header'>

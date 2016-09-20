@@ -10,7 +10,7 @@ interface AppProps {
 }
 
 function mapStateToProps(state: any) : any {
-  return state
+  return {}
 }
 
 class App extends React.Component<AppProps, void> {

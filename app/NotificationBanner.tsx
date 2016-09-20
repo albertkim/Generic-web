@@ -3,11 +3,11 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 import {User} from './models/User'
 
-interface IsEmailVerifiedBannerProps {
+interface NotificationBannerProps {
   user?: User
 }
 
-function mapStateToProps(state: any) : IsEmailVerifiedBannerProps {
+function mapStateToProps(state: any) : NotificationBannerProps {
   return {
     user: state.user
   }
@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch: any) {
   return {}
 }
 
-class IsEmailVerifiedBanner extends React.Component<IsEmailVerifiedBannerProps, void> {
+class NotificationBanner extends React.Component<NotificationBannerProps, void> {
 
   render() {
     const style = {
@@ -52,4 +52,4 @@ class IsEmailVerifiedBanner extends React.Component<IsEmailVerifiedBannerProps, 
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IsEmailVerifiedBanner)
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationBanner)

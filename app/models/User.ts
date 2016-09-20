@@ -1,3 +1,4 @@
 export interface User {
-  email: string
+  email: string,
+  isEmailVerified: boolean
 }

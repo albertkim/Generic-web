@@ -5,11 +5,11 @@ import {connect} from 'react-redux'
 import {User} from '../models/User'
 import {AuthService} from '../services/AuthService'
 
-interface INavigationBarProps {
+interface NavigationBarProps {
   user?: User
 }
 
-function mapStateToProps(state: any) : INavigationBarProps {
+function mapStateToProps(state: any) : NavigationBarProps {
   return {
     user: state.user
   }
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch: any) {
   return {}
 }
 
-class NavigationBar extends React.Component<INavigationBarProps, void> {
+class NavigationBar extends React.Component<NavigationBarProps, void> {
 
   logout() {
     AuthService.logout().then(() => {
@@ -29,12 +29,12 @@ class NavigationBar extends React.Component<INavigationBarProps, void> {
 
   render() {
     let profileSection: JSX.Element
-    if (AuthService.isLoggedIn()) {
+    if (this.props.user) {
       profileSection = (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/profile">{ this.state.email }</Link></li>
+          <li><Link to="/profile">{ this.props.user.email }</Link></li>
           <li><a href="" onClick={ this.logout }>Logout</a></li>
         </ul>
       )

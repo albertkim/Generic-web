@@ -3,11 +3,13 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {Router, Route, IndexRoute, Link, browserHistory} from 'react-router'
 import {createStore, applyMiddleware} from 'redux'
-import {Provider} from 'react-redux'
+import {Provider, connect} from 'react-redux'
 import promiseMiddleware from 'redux-promise'
 import {reducers} from './reducers'
+import {fetchCurrentUser} from './actions'
 import {Home} from './containers/Home'
 import NavigationBar from './containers/NavigationBar'
+import IsEmailVerifiedBanner from './IsEmailVerifiedBanner'
 import {Footer} from './containers/Footer'
 import {About} from './containers/About'
 import {Login} from './containers/Login'
@@ -18,13 +20,22 @@ import '!style!css!sass!./styles/main.scss'
 // https://rjzaworski.com/2016/08/typescript-redux-and-react
 // Reference for creating redux-connected components without having to pass down props: 
 // http://www.mattgreer.org/articles/typescript-react-and-redux/
-class App extends React.Component<void, void> {
+
+function mapStateToProps(state: any) : any {
+  return state
+}
+
+class AppComponent extends React.Component<any, any> {
+
+  componentWillMount() {
+    this.props.fetchCurrentUser()
+  }
 
   render() {
     return (
       <div>
         <NavigationBar />
-        <div style={{height: '3em'}}/>
+        <IsEmailVerifiedBanner />
         <div>
           { this.props.children }
         </div>
@@ -34,6 +45,8 @@ class App extends React.Component<void, void> {
   }
 
 }
+
+const App = connect(mapStateToProps, {fetchCurrentUser})(AppComponent)
 
 ReactDOM.render((
   // Reference for middleware is not a function error

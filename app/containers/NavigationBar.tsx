@@ -2,39 +2,46 @@ import * as React from 'react'
 import {Link} from 'react-router'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import {ApplicationState} from '../models/ApplicationState'
 import {User} from '../models/User'
 import {AuthService} from '../services/AuthService'
-import {login, logout} from '../actions'
+import {Action, login, LOGIN_USER_REQUEST, logout} from '../actions'
 
-interface NavigationBarProps {
-  user?: User,
-  actions?: any
+interface StateProps {
+  user?: User
 }
 
-function mapStateToProps(state: any) : NavigationBarProps {
+interface DispatchProps {
+  login: Function,
+  logout: Function
+}
+
+function mapStateToProps(state: ApplicationState) : StateProps {
   return {
     user: state.user
   }
 }
 
-function mapDispatchToProps(dispatch: any) : NavigationBarProps {
+function mapDispatchToProps(dispatch: any) : DispatchProps {
   return {
-    actions: bindActionCreators({login, logout}, dispatch)
+    login: bindActionCreators(login, dispatch),
+    logout: bindActionCreators(logout, dispatch)
   }
 }
 
-class NavigationBar extends React.Component<NavigationBarProps, void> {
+class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
 
   login() {
-    this.props.actions.login('test@test.com', 'password')
+    this.props.login('test@test.com', 'password')
   }
 
   logout() {
-    this.props.actions.logout()
+    this.props.logout()
   }
 
   render() {
     let profileSection: JSX.Element
+    
     if (this.props.user) {
       profileSection = (
         <ul className='nav navbar-nav navbar-right'>

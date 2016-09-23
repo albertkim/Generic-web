@@ -12,7 +12,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  login: Function,
   logout: Function
 }
 
@@ -24,16 +23,11 @@ function mapStateToProps(state: ApplicationState) : StateProps {
 
 function mapDispatchToProps(dispatch: any) : DispatchProps {
   return {
-    login: bindActionCreators(login, dispatch),
     logout: bindActionCreators(logout, dispatch)
   }
 }
 
 class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
-
-  login() {
-    this.props.login('test@test.com', 'password')
-  }
 
   logout() {
     this.props.logout()
@@ -59,8 +53,7 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
           <li><Link to='/contact'>Contact</Link></li>
           <li>
             <p className='navbar-btn'>
-              <button className='btn btn-default' style={{marginRight: '1em', marginLeft: '1em'}} onClick={() => this.login()}>Login</button>
-              {/* <Link to='/login' className='btn btn-default' style={{ marginRight: '1em', marginLeft: '1em' }}>Login</Link> */}
+              <Link to='/login' className='btn btn-default' style={{marginRight: '1em', marginLeft: '1em'}}>Login</Link>
             </p>
           </li>
           <li>
@@ -96,4 +89,4 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
+export default connect(mapStateToProps, {mapDispatchToProps})(NavigationBar)

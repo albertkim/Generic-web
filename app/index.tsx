@@ -4,12 +4,12 @@ import * as ReactDOM from 'react-dom'
 import {Router, Route, IndexRoute, Link, browserHistory} from 'react-router'
 import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
-import promiseMiddleware from 'redux-promise'
+import thunk from 'redux-thunk'
 import {reducers} from './reducers'
 import App from './App'
 import {Home} from './containers/Home'
 import {About} from './containers/About'
-import {Login} from './containers/Login'
+import Login from './containers/Login'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 
@@ -21,7 +21,7 @@ import '!style!css!sass!./styles/main.scss'
 ReactDOM.render((
   // Reference for middleware is not a function error
   // https://github.com/gaearon/redux-thunk/issues/35
-  <Provider store={createStore(reducers, applyMiddleware(promiseMiddleware))}>
+  <Provider store={createStore(reducers, applyMiddleware(thunk))}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />

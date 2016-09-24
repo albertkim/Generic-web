@@ -12,6 +12,7 @@ import {About} from './containers/About'
 import Login from './containers/Login'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
+import 'core-js'
 
 // General Typescript+Redux:
 // https://rjzaworski.com/2016/08/typescript-redux-and-react

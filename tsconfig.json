@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "module": "commonjs",
     "noImplicitAny": true,
-    "removeComments": true,
+    "removeComments": false,
     "preserveConstEnums": true,
-    "rootDir": "app/",
-    "outDir": "build/",
+    "rootDir": "app",
+    "outDir": "build",
     "sourceMap": true,
     "jsx": "react",
     "experimentalDecorators": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build",
+    "server"
   ]
 }

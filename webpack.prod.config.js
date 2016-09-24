@@ -4,8 +4,6 @@ module.exports = {
   context: __dirname,
 
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080',
-    'webpack/hot/only-dev-server',
     './app/index.html',
     './app/index.tsx'
   ],
@@ -30,8 +28,7 @@ module.exports = {
         test: /index\.html$/,
         loader: 'file?name=index.html',
       },
-      // Was matching ts/tsx twice, can into implicit any errors
-      // http://stackoverflow.com/questions/33969292/how-do-i-get-this-typescript-webpack-project-to-compile-without-error
+      { test: /\.ts?$/, loader: 'ts-loader' },
       { test: /\.tsx?$/, loader: 'ts-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.scss$/, loader: ['style', 'css', 'sass'] },

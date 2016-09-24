@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {createStore, applyMiddleware, compose} from 'redux'
+import {syncHistoryWithStore} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import {reducers} from './reducers'
@@ -30,7 +31,7 @@ ReactDOM.render((
   // Reference for middleware is not a function error
   // https://github.com/reactjs/redux/issues/533
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={syncHistoryWithStore(browserHistory, store)}>
       <Route path='/' component={App}>
         <IndexRoute component={Home} />
         <Route path='/about' component={About} />

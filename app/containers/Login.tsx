@@ -1,11 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import {browserHistory} from 'react-router'
 import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
-import {AuthService} from '../services/AuthService'
-import {Action, login, LOGIN_USER_SUCCESSFUL} from '../actions'
+import {login} from '../actions'
 
 interface StateProps {}
 

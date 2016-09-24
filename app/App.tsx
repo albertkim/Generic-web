@@ -25,7 +25,7 @@ function mapDispatchToProps(dispatch: any) : DispatchProps {
 
 class App extends React.Component<StateProps & DispatchProps, void> {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchCurrentUser()
   }
 

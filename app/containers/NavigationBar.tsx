@@ -4,8 +4,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {User} from '../models/User'
-import {AuthService} from '../services/AuthService'
-import {Action, login, logout} from '../actions'
+import {logout} from '../actions'
 
 interface StateProps {
   user?: User

@@ -16,11 +16,32 @@ export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR'
 export type LOGIN_USER_ERROR = {error: any}
 export const FETCH_USER_REQUEST_SUCCESSFUL = 'FETCH_USER_REQUEST_SUCCESSFUL'
 export type FETCH_USER_REQUEST_SUCCESSFUL = {user: User}
+export const FETCH_USER_REQUEST_ERROR = 'FETCH_USER_REQUEST_ERROR'
+export type FETCH_USER_REQUEST_ERROR = {}
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'
 export type LOGOUT_USER_REQUEST = {}
 
 // Helpful tutorial on dispatching thunks
 // http://blog.nojaf.com/2015/12/06/redux-thunk/
+
+export function fetchCurrentUser(): Action<FETCH_USER_REQUEST_SUCCESSFUL|FETCH_USER_REQUEST_ERROR> {
+  if (window.localStorage['authToken'] != null) {
+    return {
+      type: FETCH_USER_REQUEST_SUCCESSFUL,
+      payload: {
+        user: {
+          email: 'test.com',
+          isEmailVerified: false
+        }
+      }
+    }
+  } else {
+    return {
+      type: FETCH_USER_REQUEST_ERROR,
+      payload: {}
+    }
+  }
+}
 
 export function login(email: string, password: string):
   ThunkAction<void, LOGIN_USER_SUCCESSFUL|LOGIN_USER_ERROR, void> {
@@ -35,6 +56,8 @@ export function login(email: string, password: string):
     })
 
     request.then((data: any) => {
+      window.localStorage['authToken'] = data.authToken
+      dispatch(fetchCurrentUser())
       dispatch({
         type: LOGIN_USER_SUCCESSFUL,
         payload: {
@@ -53,20 +76,8 @@ export function login(email: string, password: string):
   }
 }
 
-
-export function fetchCurrentUser(): Action<FETCH_USER_REQUEST_SUCCESSFUL> {
-  return {
-    type: FETCH_USER_REQUEST_SUCCESSFUL,
-    payload: {
-      user: {
-        email: 'test.com',
-        isEmailVerified: false
-      }
-    }
-  }
-}
-
 export function logout(): Action<LOGOUT_USER_REQUEST> {
+  window.localStorage.clear()
   return {
     type: LOGOUT_USER_REQUEST,
     payload: {}

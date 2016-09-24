@@ -9,7 +9,7 @@
     "comment-format": [true, "check-space"],
     "indent": [true, "spaces"],
     "no-duplicate-variable": true,
-    "no-unused-variable": [false, "warn"],
+    "no-unused-variable": [true, "warn"],
     "no-eval": true,
     "no-trailing-whitespace": true,
     "no-var-keyword": true,

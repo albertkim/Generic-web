@@ -1,5 +1,6 @@
 import {User} from './User'
 
 export interface ApplicationState {
-  user?: User
+  user?: User,
+  isUserLoading: boolean
 }

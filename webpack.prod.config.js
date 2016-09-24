@@ -28,7 +28,6 @@ module.exports = {
         test: /index\.html$/,
         loader: 'file?name=index.html',
       },
-      { test: /\.ts?$/, loader: 'ts-loader' },
       { test: /\.tsx?$/, loader: 'ts-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.scss$/, loader: ['style', 'css', 'sass'] },

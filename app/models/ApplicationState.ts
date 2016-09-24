@@ -1,7 +1,3 @@
-import {User} from './User'
+import {ApplicationState} from '../reducers'
 
-export interface ApplicationState {
-  user?: User,
-  isUserLoading: boolean,
-  isConnectedToServer?: boolean
-}
+export {ApplicationState}

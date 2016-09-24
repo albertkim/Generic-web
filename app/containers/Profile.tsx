@@ -8,8 +8,7 @@ import {User} from '../models/User'
 import {fetchCurrentUser} from '../actions/actions'
 
 interface StateProps {
-  user?: User,
-  isUserLoading: boolean
+  user?: User
 }
 
 interface DispatchProps {
@@ -18,8 +17,7 @@ interface DispatchProps {
 
 function mapStateToProps(state: ApplicationState): StateProps {
   return {
-    user: state.user,
-    isUserLoading: state.isUserLoading
+    user: state.user
   }
 }
 
@@ -36,19 +34,15 @@ class Profile extends React.Component<StateProps & DispatchProps, void> {
 
   getEmailDisplay() {
     if (this.props.user.isEmailVerified) {
-      return (<p><span>{this.props.user.email}</span><span> (verified)</span></p>)
+      return (<p><span>{this.props.user.email} </span><span className='label label-success'>Verified</span></p>)
     } else {
-      return (<p><span>{this.props.user.email}</span><span> (not verified)</span></p>)
+      return (<p><span>{this.props.user.email} </span><span className='label label-warning'>Unverified</span></p>)
     }
   }
 
   render() {
-    if (this.props.isUserLoading) {
-      return (<p>Loading...</p>)
-    }
-
     if (!this.props.user) {
-      return (<p>You are not logged in!</p>)
+      return (<p>Loading...</p>)
     }
 
     return (

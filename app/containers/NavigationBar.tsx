@@ -37,11 +37,11 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
   getConnectedToServer() {
     if (this.props.isConnectedToServer == null) {
       // Server connection hasn't finished yet
-      return <span>Connecting...</span>
+      return <span className='label label-default'>Connecting...</span>
     } else if (this.props.isConnectedToServer === true) {
-      return <span>Up and running!</span>
+      return <span className='label label-success'>Up and running!</span>
     } else if (this.props.isConnectedToServer === false) {
-      return <span>Our servers are currently down</span>
+      return <span className='label label-danger'>Our servers are currently down</span>
     }
   }
 

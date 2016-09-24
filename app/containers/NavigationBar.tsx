@@ -15,13 +15,13 @@ interface DispatchProps {
   logout: Function
 }
 
-function mapStateToProps(state: ApplicationState) : StateProps {
+function mapStateToProps(state: ApplicationState): StateProps {
   return {
     user: state.user
   }
 }
 
-function mapDispatchToProps(dispatch: any) : DispatchProps {
+function mapDispatchToProps(dispatch: any): DispatchProps {
   return {
     logout: bindActionCreators(logout, dispatch)
   }
@@ -96,4 +96,4 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
 
 }
 
-export default connect(mapStateToProps, {mapDispatchToProps})(NavigationBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

@@ -1,4 +1,3 @@
-/// <reference path="../typings/index.d.ts"/>
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {Router, Route, IndexRoute, Link, browserHistory} from 'react-router'
@@ -24,10 +23,10 @@ ReactDOM.render((
   // https://github.com/reactjs/redux/issues/533
   <Provider store={applyMiddleware(thunk)(createStore)(reducers)}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
+      <Route path='/' component={App}>
         <IndexRoute component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/login" component={Login} />
+        <Route path='/about' component={About} />
+        <Route path='/login' component={Login} />
       </Route>
     </Router>
   </Provider>

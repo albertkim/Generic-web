@@ -4,10 +4,11 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {User} from '../models/User'
-import {logout} from '../actions'
+import {logout} from '../actions/actions'
 
 interface StateProps {
-  user?: User
+  user?: User,
+  isConnectedToServer?: boolean
 }
 
 interface DispatchProps {
@@ -16,7 +17,8 @@ interface DispatchProps {
 
 function mapStateToProps(state: ApplicationState): StateProps {
   return {
-    user: state.user
+    user: state.user,
+    isConnectedToServer: state.isConnectedToServer
   }
 }
 
@@ -30,6 +32,17 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
 
   logout() {
     this.props.logout()
+  }
+
+  getConnectedToServer() {
+    if (this.props.isConnectedToServer == null) {
+      // Server connection hasn't finished yet
+      return <span>Connecting...</span>
+    } else if (this.props.isConnectedToServer === true) {
+      return <span>Up and running!</span>
+    } else if (this.props.isConnectedToServer === false) {
+      return <span>Our servers are currently down</span>
+    }
   }
 
   render() {
@@ -82,6 +95,7 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
               <span className='icon-bar' />
             </button>
             <Link to='/' className='navbar-brand'>Generic-web</Link>
+            {this.getConnectedToServer()}
           </div>
           <div id='navbar' className='navbar-collapse collapse'>
             <ul className='nav navbar-nav navbar-right'>

@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {User} from '../models/User'
-import {fetchCurrentUser} from '../actions'
+import {fetchCurrentUser} from '../actions/actions'
 
 interface StateProps {
   user?: User,

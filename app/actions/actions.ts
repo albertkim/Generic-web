@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux'
-import {User} from './models/User'
+import {User} from '../models/User'
+import Endpoints from '../constants/Endpoints'
 
 export interface Action<T> {
   type: string
@@ -24,6 +25,9 @@ export type FETCH_USER_REQUEST_ERROR = {}
 
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'
 export type LOGOUT_USER_REQUEST = {}
+
+export const CONNECT_TO_SERVER_REQUEST = 'CONNECT_TO_SERVER_REQUEST'
+export type CONNECT_TO_SERVER_REQUEST = {connected: boolean}
 
 // Helpful tutorial on dispatching thunks
 // http://blog.nojaf.com/2015/12/06/redux-thunk/
@@ -85,5 +89,25 @@ export function logout(): Action<LOGOUT_USER_REQUEST> {
   return {
     type: LOGOUT_USER_REQUEST,
     payload: {}
+  }
+}
+
+export function connectToServer(): ThunkAction<void, CONNECT_TO_SERVER_REQUEST, void> {
+  return (dispatch, getState, extraArg) => {
+    Endpoints.Axios.get('/ping').then(response => {
+      dispatch({
+        type: CONNECT_TO_SERVER_REQUEST,
+        payload: {
+          connected: true
+        }
+      })
+    }).catch(error => {
+      dispatch({
+        type: CONNECT_TO_SERVER_REQUEST,
+        payload: {
+          connected: false
+        }
+      })
+    })
   }
 }

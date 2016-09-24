@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
-import {login} from '../actions'
+import {login} from '../actions/actions'
 
 interface StateProps {}
 

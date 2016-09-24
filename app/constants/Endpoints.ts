@@ -1,9 +1,13 @@
-var root = 'http://localhost:81/api/v1/';
+import * as axios from 'axios'
+
+const RootApi = 'http://localhost:81'
 
 export default {
-  ROOT: root,
-  EMAIL_LOGIN: root + '/login',
-  FACEBOOK_LOGIN: root + '/facebookLogin',
-  REGISTER: root + '/register',
-  GET_USER: root + '/user'
+  RootApi: RootApi,
+  Axios: axios.create({
+    baseURL: RootApi,
+    headers: {
+      Authentication: `bearer ${window.localStorage.getItem('authToken')}`
+    }
+  })
 }

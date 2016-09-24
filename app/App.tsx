@@ -5,21 +5,23 @@ import NavigationBar from './containers/NavigationBar'
 import {Footer} from './containers/Footer'
 import NotificationBanner from './NotificationBanner'
 import {ApplicationState} from './models/ApplicationState'
-import {fetchCurrentUser} from './actions'
+import {fetchCurrentUser, connectToServer} from './actions/actions'
 
 interface StateProps {}
 
 interface DispatchProps {
-  fetchCurrentUser: Function
+  fetchCurrentUser: Function,
+  connectToServer: Function
 }
 
-function mapStateToProps(state: ApplicationState) : StateProps {
+function mapStateToProps(state: ApplicationState): StateProps {
   return {}
 }
 
-function mapDispatchToProps(dispatch: any) : DispatchProps {
+function mapDispatchToProps(dispatch: any): DispatchProps {
   return {
-    fetchCurrentUser: bindActionCreators(fetchCurrentUser, dispatch)
+    fetchCurrentUser: bindActionCreators(fetchCurrentUser, dispatch),
+    connectToServer: bindActionCreators(connectToServer, dispatch)
   }
 }
 
@@ -27,6 +29,7 @@ class App extends React.Component<StateProps & DispatchProps, void> {
 
   componentDidMount() {
     this.props.fetchCurrentUser()
+    this.props.connectToServer()
   }
 
   render() {

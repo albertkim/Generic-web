@@ -4,7 +4,8 @@ import {ApplicationState} from './models/ApplicationState'
 import {Action, LOGIN_USER_SUCCESSFUL,
         FETCH_USER_REQUEST_SUCCESSFUL,
         FETCH_USER_REQUEST_ERROR,
-        LOGOUT_USER_REQUEST} from './actions'
+        LOGOUT_USER_REQUEST,
+        CONNECT_TO_SERVER_REQUEST} from './actions/actions'
 
 const INITIAL_STATE = {
   isUserLoading: true
@@ -16,27 +17,38 @@ export const reducers = handleActions({
     browserHistory.goBack()
     return {
       user: state.user,
-      isUserLoading: true
+      isUserLoading: true,
+      isConnectedToServer: state.isConnectedToServer
     } as ApplicationState
   },
 
   [FETCH_USER_REQUEST_SUCCESSFUL]: (state = INITIAL_STATE, action: Action<FETCH_USER_REQUEST_SUCCESSFUL>) => {
     return {
       user: action.payload.user,
-      isUserLoading: false
+      isUserLoading: false,
+      isConnectedToServer: state.isConnectedToServer
     } as ApplicationState
   },
 
   [FETCH_USER_REQUEST_ERROR]: (state = INITIAL_STATE, action: Action<FETCH_USER_REQUEST_ERROR>) => {
     return {
-      isUserLoading: false
+      isUserLoading: false,
+      isConnectedToServer: state.isConnectedToServer
     } as ApplicationState
   },
 
   [LOGOUT_USER_REQUEST]: (state = INITIAL_STATE, action: Action<LOGOUT_USER_REQUEST>) => {
     browserHistory.push('/')
     return {
-      isUserLoading: false
+      isUserLoading: false,
+      isConnectedToServer: state.isConnectedToServer
+    } as ApplicationState
+  },
+
+  [CONNECT_TO_SERVER_REQUEST]: (state = INITIAL_STATE, action: Action<CONNECT_TO_SERVER_REQUEST>) => {
+    return {
+      isUserLoading: state.isUserLoading,
+      isConnectedToServer: action.payload.connected
     } as ApplicationState
   }
 

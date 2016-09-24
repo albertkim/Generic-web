@@ -20,8 +20,8 @@ import '!style!css!sass!./styles/main.scss'
 
 ReactDOM.render((
   // Reference for middleware is not a function error
-  // https://github.com/gaearon/redux-thunk/issues/35
-  <Provider store={createStore(reducers, applyMiddleware(thunk))}>
+  // https://github.com/reactjs/redux/issues/533
+  <Provider store={applyMiddleware(thunk)(createStore)(reducers)}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />

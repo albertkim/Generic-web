@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions'
 import {ApplicationState} from './models/ApplicationState'
 import {User} from './models/User'
-import {Action, LOGIN_USER_REQUEST, FETCH_USER_REQUEST, LOGOUT_USER_REQUEST} from './actions'
+import {Action, LOGIN_USER_SUCCESSFUL, FETCH_USER_REQUEST, LOGOUT_USER_REQUEST} from './actions'
 
 const INITIAL_STATE : ApplicationState = {}
 

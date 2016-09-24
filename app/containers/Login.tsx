@@ -5,7 +5,7 @@ import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {AuthService} from '../services/AuthService'
-import {Action, login, LOGIN_USER_REQUEST} from '../actions'
+import {Action, login, LOGIN_USER_SUCCESSFUL} from '../actions'
 
 interface StateProps {
   
@@ -23,9 +23,7 @@ function mapStateToProps(state: ApplicationState) : StateProps {
 
 function mapDispatchToProps(dispatch: any) : DispatchProps {
   return {
-    login: function(email: string, password: string) {
-			login(dispatch, null, {email: email, password: password})
-		}
+    login: bindActionCreators(login, dispatch)
   }
 }
 

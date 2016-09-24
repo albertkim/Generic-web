@@ -10,8 +10,8 @@ export interface Action<T> {
 
 type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S, extraArgument: E) => R
 
-export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'
-export type LOGIN_USER_REQUEST = {user: User, authToken: string}
+export const LOGIN_USER_SUCCESSFUL = 'LOGIN_USER_SUCCESSFUL'
+export type LOGIN_USER_SUCCESSFUL = {user: User, authToken: string}
 export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR'
 export type LOGIN_USER_ERROR = {}
 export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
@@ -19,13 +19,12 @@ export type FETCH_USER_REQUEST = {}
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'
 export type LOGOUT_USER_REQUEST = {}
 
-export const login : ThunkAction<void, void, {email: string, password: string}> =
-  (dispatch, getState, extraArg) => {
-    console.log(dispatch, getState, extraArg)
+// Helpful tutorial on dispatching thunks
+// http://blog.nojaf.com/2015/12/06/redux-thunk/
 
+export function login(email: string, password: string) : ThunkAction<void, void, void> {
+  return (dispatch, getState, extraArg) => {
     const request = new Promise<any>((resolve, reject) => {
-      const email = extraArg.email
-      const password = extraArg.password
       resolve({
         user: {
           email: email
@@ -36,7 +35,7 @@ export const login : ThunkAction<void, void, {email: string, password: string}> 
 
     request.then((data: any) => {
       dispatch({
-        type: LOGIN_USER_REQUEST,
+        type: LOGIN_USER_SUCCESSFUL,
         payload: {
           user: data.user,
           authToken: data.authToken
@@ -51,6 +50,8 @@ export const login : ThunkAction<void, void, {email: string, password: string}> 
       })
     })
   }
+}
+
 
 export function fetchCurrentUser() : Action<FETCH_USER_REQUEST> {
   return {

@@ -29,7 +29,9 @@ class App extends React.Component<StateProps & DispatchProps, void> {
 
   componentDidMount() {
     this.props.fetchCurrentUser()
+
     this.props.connectToServer()
+    setInterval(() => this.props.connectToServer(), 10000)
   }
 
   render() {

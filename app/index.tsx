@@ -5,7 +5,7 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import {syncHistoryWithStore} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-import promiseMiddleware from 'redux-promise'
+import * as promiseMiddleware from 'redux-promise'
 import {reducers} from './reducers'
 import App from './App'
 import {Home} from './containers/Home'
@@ -24,7 +24,7 @@ import 'core-js'
 declare var window: any
 
 const store = createStore(reducers, {}, compose(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, promiseMiddleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
 

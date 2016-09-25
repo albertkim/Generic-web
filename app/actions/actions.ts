@@ -37,21 +37,27 @@ export type CONNECT_TO_SERVER_REQUEST = {connected: boolean}
 // Helpful tutorial on dispatching thunks
 // http://blog.nojaf.com/2015/12/06/redux-thunk/
 
-export function fetchCurrentUser(): IAction<FETCH_USER_REQUEST_SUCCESSFUL | FETCH_USER_REQUEST_ERROR> {
-  if (window.localStorage.getItem('authToken') != null) {
-    return {
-      type: FETCH_USER_REQUEST_SUCCESSFUL,
-      payload: {
-        user: {
-          email: 'test@test.com',
-          isEmailVerified: false
-        }
-      }
-    }
-  } else {
-    return {
-      type: FETCH_USER_REQUEST_ERROR,
-      payload: {}
+export function fetchCurrentUser(email: string, password: string):
+  IThunkAction<void, FETCH_USER_REQUEST_SUCCESSFUL | FETCH_USER_REQUEST_ERROR, void> {
+  return (dispatch, getState, extraArg) => {
+    if (window.localStorage.getItem('authToken') != null) {
+      const request = Endpoints.Axios.get(Endpoints.GET_ME)
+
+      request.then((response: any) => {
+        dispatch({
+          type: FETCH_USER_REQUEST_SUCCESSFUL,
+          payload: {
+            user: response.data
+          }
+        })
+      }).catch((error: any) => {
+        dispatch({
+          type: FETCH_USER_REQUEST_ERROR,
+          payload: {
+            error: error
+          }
+        })
+      })
     }
   }
 }

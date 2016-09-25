@@ -7,10 +7,11 @@ export default {
   Axios: axios.create({
     baseURL: RootApi,
     headers: {
-      Authentication: `bearer ${window.localStorage.getItem('authToken')}`
+      authorization: `bearer ${window.localStorage.getItem('authToken')}`
     }
   }),
   GET_PING: `/ping`,
   POST_LOGIN_EMAIL: `/api/v1/login`,
-  POST_REGISTER_EMAIL: `/api/v1/register`
+  POST_REGISTER_EMAIL: `/api/v1/register`,
+  GET_ME: `/api/v1/user/me`
 }

@@ -37,7 +37,7 @@ export type CONNECT_TO_SERVER_REQUEST = {connected: boolean}
 // Helpful tutorial on dispatching thunks
 // http://blog.nojaf.com/2015/12/06/redux-thunk/
 
-export function fetchCurrentUser(email: string, password: string):
+export function fetchCurrentUser():
   IThunkAction<void, FETCH_USER_REQUEST_SUCCESSFUL | FETCH_USER_REQUEST_ERROR, void> {
   return (dispatch, getState, extraArg) => {
     if (window.localStorage.getItem('authToken') != null) {

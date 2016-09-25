@@ -5,7 +5,7 @@
   "main": "src/index.html",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --progress -p --config webpack.prod.config.js",
+    "build": "rimraf build && webpack --progress -p --config webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Albert Kim",
@@ -38,6 +38,7 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "resolve-url-loader": "^1.6.0",
+    "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.0",
     "typescript": "^2.0.2",

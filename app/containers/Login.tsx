@@ -58,7 +58,7 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <input type='password' className='form-control' ref='login-password' />
             </div>
             <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
-            <FormError type={LOGIN_USER_ERROR} />
+            <p><FormError type={LOGIN_USER_ERROR} /></p>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <input type='password' className='form-control' ref='register-password' />
             </div>
             <button className='btn btn-default' onClick={this.register.bind(this)}>Submit</button>
-            <FormError type={REGISTER_USER_ERROR} />
+            <p><FormError type={REGISTER_USER_ERROR} /></p>
           </div>
         </div>
       </div>

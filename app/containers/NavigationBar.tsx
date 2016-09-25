@@ -39,7 +39,7 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
       // Server connection hasn't finished yet
       return <span className='label label-default'>Connecting...</span>
     } else if (this.props.isConnectedToServer === true) {
-      return <span className='label label-success'>Up and running!</span>
+      return <span className='label label-success'>Connected to API server</span>
     } else if (this.props.isConnectedToServer === false) {
       return <span className='label label-danger'>Our servers are currently down</span>
     }
@@ -89,9 +89,11 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
               <span className='icon-bar' />
             </button>
             <Link to='/' className='navbar-brand'>Generic-web</Link>
-            {this.getConnectedToServer()}
           </div>
           <div id='navbar' className='navbar-collapse collapse'>
+            <ul className='nav navbar-nav navbar-left'>
+              <li><a>{this.getConnectedToServer()}</a></li>
+            </ul>
             <ul className='nav navbar-nav navbar-right'>
               {profileSection}
             </ul>

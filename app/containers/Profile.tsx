@@ -34,9 +34,9 @@ class Profile extends React.Component<StateProps & DispatchProps, void> {
 
   getEmailDisplay() {
     if (this.props.user.isEmailVerified) {
-      return (<p><span>{this.props.user.email} </span><span className='label label-success'>Verified</span></p>)
+      return (<span><span>{this.props.user.email} </span><span className='label label-success'>Verified</span></span>)
     } else {
-      return (<p><span>{this.props.user.email} </span><span className='label label-warning'>Unverified</span></p>)
+      return (<span><span>{this.props.user.email} </span><span className='label label-warning'>Unverified</span></span>)
     }
   }
 
@@ -49,7 +49,10 @@ class Profile extends React.Component<StateProps & DispatchProps, void> {
       <div className='container-fluid'>
         <h1>Profile</h1>
         <hr />
-        <p>{this.getEmailDisplay()}</p>
+        <p><span>Email: </span>{this.getEmailDisplay()}</p>
+        <p><span>Full name: </span>{this.props.user.name || 'No name entered yet'}</p>
+        <p><span>Facebook: </span>{this.props.user.facebookId || 'No account linked yet'}</p>
+        <p><span>Google: </span>{this.props.user.googleId || 'No account linked yet'}</p>
       </div>
     )
   }

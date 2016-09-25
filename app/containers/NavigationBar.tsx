@@ -52,7 +52,6 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
       profileSection = (
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/about'>About</Link></li>
-          <li><Link to='/contact'>Contact</Link></li>
           <li><Link to='/profile'>{this.props.user.email}</Link></li>
           <li><a href='#' onClick={this.logout.bind(this)} style={{marginRight: '2em'}}>Logout</a></li>
           {/*<li><a href='' onClick={() => this.logout()}>Logout</a></li>*/}
@@ -65,12 +64,7 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
           <li><Link to='/contact'>Contact</Link></li>
           <li>
             <p className='navbar-btn'>
-              <Link to='/login' className='btn btn-default' style={{marginLeft: '1em', marginRight: '1em'}}>Login</Link>
-            </p>
-          </li>
-          <li>
-            <p className='navbar-btn'>
-              <Link to='/register' className='btn btn-primary' style={{marginRight: '2em'}}>Register</Link>
+              <Link to='/login' className='btn btn-primary' style={{marginRight: '2em'}}>Login / Register</Link>
             </p>
           </li>
         </ul>

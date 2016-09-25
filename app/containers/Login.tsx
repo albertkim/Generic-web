@@ -3,12 +3,14 @@ import * as ReactDOM from 'react-dom'
 import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
-import {login} from '../actions/actions'
+import {login, register, LOGIN_USER_ERROR, REGISTER_USER_ERROR} from '../actions/actions'
+import FormError from '../components/FormError'
 
 interface StateProps {}
 
 interface DispatchProps {
-  login: Function
+  login: Function,
+  register: Function
 }
 
 function mapStateToProps(state: ApplicationState): StateProps {
@@ -19,7 +21,8 @@ function mapStateToProps(state: ApplicationState): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<any>): DispatchProps {
   return {
-    login: bindActionCreators(login, dispatch)
+    login: bindActionCreators(login, dispatch),
+    register: bindActionCreators(register, dispatch)
   }
 }
 
@@ -29,6 +32,13 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
     const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['login-password']).value
 
     this.props.login(email, password)
+  }
+
+  register() {
+    const email = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-email']).value
+    const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-password']).value
+
+    this.props.register(email, password)
   }
 
   render() {
@@ -48,6 +58,7 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <input type='password' className='form-control' ref='login-password' />
             </div>
             <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
+            <FormError type={LOGIN_USER_ERROR} />
           </div>
         </div>
 
@@ -64,7 +75,8 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <label>Password</label>
               <input type='password' className='form-control' ref='register-password' />
             </div>
-            <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
+            <button className='btn btn-default' onClick={this.register.bind(this)}>Submit</button>
+            <FormError type={REGISTER_USER_ERROR} />
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ import 'core-js'
 
 // General Typescript+Redux:
 // https://rjzaworski.com/2016/08/typescript-redux-and-react
-// Reference for creating redux-connected components without having to pass down props: 
+// Reference for creating redux-connected components without having to pass down props:
 // http://www.mattgreer.org/articles/typescript-react-and-redux/
 
 declare var window: any

@@ -1,27 +1,24 @@
 import {handleActions} from 'redux-actions'
-import {browserHistory} from 'react-router'
 import {User} from '../models/User'
-import {Action, LOGIN_USER_SUCCESSFUL,
+import {IAction, LOGIN_USER_SUCCESSFUL,
         FETCH_USER_REQUEST_SUCCESSFUL,
         FETCH_USER_REQUEST_ERROR,
         LOGOUT_USER_REQUEST} from '../actions/actions'
 
 export const userReducers = handleActions({
-  [LOGIN_USER_SUCCESSFUL]: (state: User, action: Action<LOGIN_USER_SUCCESSFUL>) => {
-    browserHistory.goBack()
+  [LOGIN_USER_SUCCESSFUL]: (state: User, action: IAction<LOGIN_USER_SUCCESSFUL>) => {
     return state
   },
 
-  [FETCH_USER_REQUEST_SUCCESSFUL]: (state: User, action: Action<FETCH_USER_REQUEST_SUCCESSFUL>) => {
+  [FETCH_USER_REQUEST_SUCCESSFUL]: (state: User, action: IAction<FETCH_USER_REQUEST_SUCCESSFUL>) => {
     return action.payload.user
   },
 
-  [FETCH_USER_REQUEST_ERROR]: (state: User, action: Action<FETCH_USER_REQUEST_ERROR>) => {
+  [FETCH_USER_REQUEST_ERROR]: (state: User, action: IAction<FETCH_USER_REQUEST_ERROR>) => {
     return state
   },
 
-  [LOGOUT_USER_REQUEST]: (state: User, action: Action<LOGOUT_USER_REQUEST>) => {
-    browserHistory.push('/')
+  [LOGOUT_USER_REQUEST]: (state: User, action: IAction<LOGOUT_USER_REQUEST>) => {
     return null
   }
 

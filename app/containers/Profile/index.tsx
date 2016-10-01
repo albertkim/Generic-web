@@ -6,6 +6,7 @@ import {ApplicationState} from '../../models/ApplicationState'
 import {User} from '../../models/User'
 import {fetchCurrentUser} from '../../actions/actions'
 import {updateUser} from '../../actions/user'
+import {EmailDisplayRow} from './EmailRow'
 import {NameDisplayRow, NameEditRow} from './NameRow'
 import {PhoneDisplayRow, PhoneEditRow} from './PhoneRow'
 
@@ -48,24 +49,6 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
 
   componentDidMount() {
     this.props.fetchCurrentUser()
-  }
-
-  getEmailDisplay() {
-    if (this.props.user.isEmailVerified) {
-      return (
-        <span>
-        <span>{this.props.user.email} </span>
-        <span className='label label-success'>Verified</span>
-      </span>
-      )
-    } else {
-      return (
-        <span>
-          <span>{this.props.user.email} </span>
-          <span className='label label-warning'>Unverified</span>
-        </span>
-      )
-    }
   }
 
   toggleEdit(field: string) {
@@ -135,11 +118,7 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
           <div className='col-md-6'>
             <table className='table'>
               <tbody>
-                <tr>
-                  <td>Email</td>
-                  <td>{this.getEmailDisplay()}</td>
-                  <td>Waiting for verification</td>
-                </tr>
+                <EmailDisplayRow email={this.props.user.email} isEmailVerified={this.props.user.isEmailVerified} />
                 {nameRow}
                 {phoneRow}
                 <tr>

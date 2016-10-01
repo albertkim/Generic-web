@@ -38,7 +38,7 @@ export class EmailDisplayRow extends React.Component<DisplayStateProps, void> {
       <tr>
         <td>Email</td>
         <td>{this.getEmailDisplay()}</td>
-        <td></td>
+        <td>{this.getActionLabel()}</td>
       </tr>
     )
   }

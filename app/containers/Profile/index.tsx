@@ -82,8 +82,19 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
     }
   }
 
-  save() {
-    this.props.updateUser()
+  save(updateObject: any) {
+    console.log(updateObject)
+    this.props.updateUser(updateObject, (error: any, response: any) => {
+      if (error) {
+        console.log(error)
+      } else {
+        this.props.fetchCurrentUser()
+        this.setState({
+          isNameEdit: false,
+          isPhoneEdit: false
+        })
+      }
+    })
   }
 
   render() {
@@ -100,14 +111,19 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
     }
 
     const nameRow = this.state.isNameEdit ?
-      <NameEditRow name={this.props.user.name} onClickSave={() => this.toggleEdit.bind(this, 'name')} /> :
-      <NameDisplayRow name={this.props.user.name} onEditClick={() => this.toggleEdit.bind(this, 'name')} />
+      <NameEditRow name={this.props.user.name}
+                   onClickSave={this.save.bind(this)}
+                   onClickCancel={this.toggleEdit.bind(this, 'name')} /> :
+      <NameDisplayRow name={this.props.user.name} onClickEdit={this.toggleEdit.bind(this, 'name')} />
 
     const phoneRow = this.state.isPhoneEdit ?
-      <PhoneEditRow phone={this.props.user.phone} onClickSave={() => this.toggleEdit.bind(this, 'phone')} /> :
+      <PhoneEditRow phone={this.props.user.phone}
+                    isPhoneVerified={this.props.user.isPhoneVerified}
+                    onClickSave={this.save.bind(this)}
+                    onClickCancel={this.toggleEdit.bind(this, 'phone')} /> :
       <PhoneDisplayRow phone={this.props.user.phone}
                        isPhoneVerified={this.props.user.isPhoneVerified}
-                       onEditClick={() => this.toggleEdit.bind(this, 'phone')} />
+                       onClickEdit={this.toggleEdit.bind(this, 'phone')} />
 
     return (
       <div className='container'>

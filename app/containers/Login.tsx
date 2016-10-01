@@ -1,12 +1,15 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import FormError from '../components/FormError'
 import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {login, register, LOGIN_USER_ERROR, REGISTER_USER_ERROR} from '../actions/actions'
-import FormError from '../components/FormError'
+import {IError, findError} from '../models/Error'
 
-interface StateProps {}
+interface StateProps {
+  errors?: IError[]
+}
 
 interface DispatchProps {
   login: Function,
@@ -15,7 +18,7 @@ interface DispatchProps {
 
 function mapStateToProps(state: ApplicationState): StateProps {
   return {
-    user: state.user
+    errors: state.errors
   }
 }
 
@@ -34,11 +37,23 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
     this.props.login(email, password)
   }
 
+  loginErrorComponent() {
+    const error = findError(this.props.errors, LOGIN_USER_ERROR)
+    const message = error ? (error.message || 'There was an error logging in') : null
+    return <FormError message={message} />
+  }
+
   register() {
     const email = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-email']).value
     const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-password']).value
 
     this.props.register(email, password)
+  }
+
+  registerErrorComponent() {
+    const error = findError(this.props.errors, REGISTER_USER_ERROR)
+    const message = error ? (error.message || 'There was an error registering your account') : null
+    return <FormError message={message} />
   }
 
   render() {
@@ -58,7 +73,7 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <input type='password' className='form-control' ref='login-password' />
             </div>
             <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
-            <p><FormError type={LOGIN_USER_ERROR} /></p>
+            <p>{this.loginErrorComponent()}</p>
           </div>
         </div>
 
@@ -76,7 +91,7 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
               <input type='password' className='form-control' ref='register-password' />
             </div>
             <button className='btn btn-default' onClick={this.register.bind(this)}>Submit</button>
-            <p><FormError type={REGISTER_USER_ERROR} /></p>
+            <p>{this.registerErrorComponent()}</p>
           </div>
         </div>
       </div>

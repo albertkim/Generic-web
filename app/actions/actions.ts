@@ -1,3 +1,4 @@
+import * as Axios from 'axios'
 import {Dispatch} from 'redux'
 import {browserHistory} from 'react-router'
 import {User} from '../models/User'
@@ -131,14 +132,16 @@ export function logout(): IAction<LOGOUT_USER_REQUEST> {
 
 export function connectToServer(): IThunkAction<void, CONNECT_TO_SERVER_REQUEST, void> {
   return (dispatch, getState, extraArg) => {
-    Endpoints.Axios.get(Endpoints.GET_PING).then(response => {
+    const request = Endpoints.Axios.get(Endpoints.GET_PING)
+
+    request.then((response: any) => {
       dispatch({
         type: CONNECT_TO_SERVER_REQUEST,
         payload: {
           connected: true
         }
       })
-    }).catch(error => {
+    }).catch((error: any) => {
       dispatch({
         type: CONNECT_TO_SERVER_REQUEST,
         payload: {

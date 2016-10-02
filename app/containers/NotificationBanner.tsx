@@ -4,6 +4,10 @@ import {connect} from 'react-redux'
 import {User} from '../models/User'
 import {ApplicationState} from '../models/ApplicationState'
 
+interface OwnState {
+  show: boolean
+}
+
 interface NotificationBannerProps {
   user: User,
   isConnectedToServer?: boolean
@@ -20,14 +24,36 @@ function mapDispatchToProps(dispatch: any) {
   return {}
 }
 
-class NotificationBanner extends React.Component<NotificationBannerProps, void> {
+class NotificationBanner extends React.Component<NotificationBannerProps, OwnState> {
+
+  constructor() {
+    super()
+    this.state = {
+      show: true
+    }
+  }
+
+  close() {
+    this.setState({
+      show: false
+    })
+  }
 
   getBody() {
-    if (this.props.isConnectedToServer === false) {
+    const closeButton = <a style={{marginLeft: '2em', marginRight: '2em'}} onClick={() => this.close()}>Close</a>
+
+    if (this.state.show === false) {
+
+      return (
+        <span />
+      )
+
+    } else if (this.props.isConnectedToServer === false) {
 
       return (
         <div id='server-connection-notification-banner'>
           <span>There was an error connecting to the server</span>
+          {closeButton}
         </div>
       )
 
@@ -43,6 +69,7 @@ class NotificationBanner extends React.Component<NotificationBannerProps, void> 
         <div id='verify-email-notification-banner'>
           <span style={{marginRight: '2em'}}>Please verify your email</span>
           <button className='btn btn-default'>Resend verification</button>
+          {closeButton}
         </div>
       )
 

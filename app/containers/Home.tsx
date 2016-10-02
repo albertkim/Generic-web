@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {Footer} from './Footer'
 
 export class Home extends React.Component<any, any> {
   render() {
@@ -92,6 +93,8 @@ export class Home extends React.Component<any, any> {
         <div className='row' id='contact-us'>
 
         </div>
+
+        <Footer />
 
       </div>
     )

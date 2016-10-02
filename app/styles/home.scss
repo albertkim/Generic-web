@@ -1,52 +1,34 @@
 #home {
+  
   #hero {
     display: flex;
+    flex-shrink: 0;
+    flex-basis: auto;
+    height: (100vh);
+    justify-content: center;
+    align-items: center;
+    transition: height 9999999999999999999999s;
     background-image: url('../images/space.jpg');
     background-size: cover;
-    height: 55em;
-    color: white;
-    padding-top: 37em;
-    justify-content: center;
+    color: white
   }
 
   #hero-contents {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin-bottom: 5em;
+    h1 {
+      font-weight: 400;
+    }
+
+    #logo-wrapper {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 7em;
+        height: 7em;
+        object-fit: cover;
+        border-radius: 1em;
+      }
+    }
   }
 
-  .horizontal-buttons {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  #side-image {
-    background-image: url('../images/space.jpg');
-    background-size: cover;
-    height: 30em;
-  }
-
-  #side-text {
-    display: flex;
-    align-items: center;
-    height: 30em;
-    padding: 3em;
-  }
-
-  #what-we-offer {
-    height: 20em;
-    padding: 3em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  #sign-up {
-    height: 20em;
-    padding: 3em;
-    padding-bottom: 5em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
 }

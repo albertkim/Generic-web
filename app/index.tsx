@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import * as promiseMiddleware from 'redux-promise'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {createStore, applyMiddleware, compose} from 'redux'
 import {syncHistoryWithStore} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-import * as promiseMiddleware from 'redux-promise'
 import {reducers} from './reducers'
 import App from './App'
 import {Home} from './containers/Home'
@@ -13,6 +13,9 @@ import {About} from './containers/About'
 import Login from './containers/Login'
 import Profile from './containers/Profile'
 import Dashboard from './containers/Dashboard'
+import DashboardWelcome from './containers/Dashboard/DashboardWelcome'
+import DashboardCompany from './containers/Dashboard/DashboardCompany'
+import DashboardContact from './containers/Dashboard/DashboardContact'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 import 'core-js'
@@ -22,7 +25,7 @@ import 'core-js'
 // Reference for creating redux-connected components without having to pass down props:
 // http://www.mattgreer.org/articles/typescript-react-and-redux/
 
-declare var window: any
+declare const window: any
 
 const store = createStore(reducers, {}, compose(
   applyMiddleware(thunk, promiseMiddleware),
@@ -36,10 +39,14 @@ ReactDOM.render((
     <Router history={syncHistoryWithStore(browserHistory, store)}>
       <Route path='/' component={App}>
         <IndexRoute component={Home} />
-        <Route path='/about' component={About} />
-        <Route path='/login' component={Login} />
-        <Route path='/profile' component={Profile} />
-        <Route path='/dashboard' component={Dashboard} />
+        <Route path='about' component={About} />
+        <Route path='login' component={Login} />
+        <Route path='profile' component={Profile} />
+        <Route path='dashboard' component={Dashboard}>
+          <IndexRoute component={DashboardWelcome} />
+          <Route path='company' component={DashboardCompany} />
+          <Route path='contact' component={DashboardContact} />
+        </Route>
       </Route>
     </Router>
   </Provider>

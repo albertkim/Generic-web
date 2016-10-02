@@ -12,6 +12,7 @@ import {Home} from './containers/Home'
 import {About} from './containers/About'
 import Login from './containers/Login'
 import Profile from './containers/Profile'
+import Dashboard from './containers/Dashboard'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 import 'core-js'
@@ -38,6 +39,7 @@ ReactDOM.render((
         <Route path='/about' component={About} />
         <Route path='/login' component={Login} />
         <Route path='/profile' component={Profile} />
+        <Route path='/dashboard' component={Dashboard} />
       </Route>
     </Router>
   </Provider>

@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import NavigationBar from './containers/NavigationBar'
 import {Footer} from './containers/Footer'
-import NotificationBanner from './NotificationBanner'
+import NotificationBanner from './containers/NotificationBanner'
 import {ApplicationState} from './models/ApplicationState'
 import {fetchCurrentUser, connectToServer} from './actions/actions'
 

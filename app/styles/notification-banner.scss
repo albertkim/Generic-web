@@ -1,9 +1,22 @@
-#notification-banner {
+#verify-email-notification-banner {
   position: fixed;
   width: 100%;
   top: 50px;
   height: 3em;
   background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+}
+
+#server-connection-notification-banner {
+  position: fixed;
+  width: 100%;
+  top: 50px;
+  height: 3em;
+  background-color: #d9534f;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;

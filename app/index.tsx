@@ -13,6 +13,9 @@ import {About} from './containers/About'
 import Login from './containers/Login'
 import ProfileContainer from './containers/Profile'
 import Profile from './containers/Profile/Profile'
+import PreDashboard from './containers/PreDashboard'
+import CompanyRoot from './containers/CompanyRoot'
+import CreateCompany from './containers/CreateCompany'
 import Dashboard from './containers/Dashboard'
 import DashboardWelcome from './containers/Dashboard/DashboardWelcome'
 import DashboardCompany from './containers/Dashboard/DashboardCompany'
@@ -43,11 +46,15 @@ ReactDOM.render((
         <Route path='about' component={About} />
         <Route path='login' component={Login} />
         <Route path='profile' component={ProfileContainer} />
-        <Route path='dashboard' component={Dashboard}>
-          <IndexRoute component={DashboardWelcome} />
-          <Route path='profile' component={Profile} />
-          <Route path='company' component={DashboardCompany} />
-          <Route path='contact' component={DashboardContact} />
+        <Route path='preDashboard' component={PreDashboard} />
+        <Route path='company/create' component={CreateCompany} />
+        <Route path='company/:companyId' component={CompanyRoot}>
+          <Route path='dashboard' component={Dashboard}>
+            <IndexRoute component={DashboardWelcome} />
+            <Route path='profile' component={Profile} />
+            <Route path='company' component={DashboardCompany} />
+            <Route path='contact' component={DashboardContact} />
+          </Route>
         </Route>
       </Route>
     </Router>

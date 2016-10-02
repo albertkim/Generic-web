@@ -1,9 +1,11 @@
 import * as React from 'react'
 import {Link} from 'react-router'
 
-// Sidebar reference: https://github.com/BlackrockDigital/startbootstrap-simple-sidebar
-export default class Dashboard extends React.Component<void, void> {
+export default class Dashboard extends React.Component<{params: {companyId: number}}, void> {
+
   render() {
+    const companyDashboardUrl = `/company/${this.props.params.companyId}/dashboard`
+
     return (
 
       <div>
@@ -12,10 +14,10 @@ export default class Dashboard extends React.Component<void, void> {
           <div id='sidebar-wrapper'>
             <ul className='sidebar-nav'>
               <li>
-                <Link to='/dashboard/profile'>Profile</Link>
+                <Link to={`${companyDashboardUrl}/profile`}>Profile</Link>
               </li>
               <li>
-                <Link to='/dashboard/company'>Company</Link>
+                <Link to={`${companyDashboardUrl}/company`}>Company</Link>
               </li>
               <li>
                 <a href='#'>Subscription</a>
@@ -30,7 +32,7 @@ export default class Dashboard extends React.Component<void, void> {
                 <a href='#'>Services</a>
               </li>
               <li>
-                <Link to='/dashboard/contact'>Contact</Link>
+                <Link to={`${companyDashboardUrl}/contact`}>Contact</Link>
               </li>
             </ul>
           </div>

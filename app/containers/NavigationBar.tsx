@@ -51,7 +51,7 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
     if (this.props.user) {
       profileSection = (
         <ul className='nav navbar-nav navbar-right'>
-          <li><Link to='/dashboard'>Dashboard</Link></li>
+          <li><Link to='/preDashboard'>Dashboard</Link></li>
           <li><Link to='/profile'>{this.props.user.email}</Link></li>
           <li><a href='#' onClick={this.logout.bind(this)} style={{marginRight: '2em'}}>Logout</a></li>
           {/*<li><a href='' onClick={() => this.logout()}>Logout</a></li>*/}

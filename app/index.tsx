@@ -11,7 +11,8 @@ import App from './App'
 import {Home} from './containers/Home'
 import {About} from './containers/About'
 import Login from './containers/Login'
-import Profile from './containers/Profile'
+import ProfileContainer from './containers/Profile'
+import Profile from './containers/Profile/Profile'
 import Dashboard from './containers/Dashboard'
 import DashboardWelcome from './containers/Dashboard/DashboardWelcome'
 import DashboardCompany from './containers/Dashboard/DashboardCompany'
@@ -41,9 +42,10 @@ ReactDOM.render((
         <IndexRoute component={Home} />
         <Route path='about' component={About} />
         <Route path='login' component={Login} />
-        <Route path='profile' component={Profile} />
+        <Route path='profile' component={ProfileContainer} />
         <Route path='dashboard' component={Dashboard}>
           <IndexRoute component={DashboardWelcome} />
+          <Route path='profile' component={Profile} />
           <Route path='company' component={DashboardCompany} />
           <Route path='contact' component={DashboardContact} />
         </Route>

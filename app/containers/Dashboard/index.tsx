@@ -12,6 +12,9 @@ export default class Dashboard extends React.Component<void, void> {
           <div id='sidebar-wrapper'>
             <ul className='sidebar-nav'>
               <li>
+                <Link to='/dashboard/profile'>Profile</Link>
+              </li>
+              <li>
                 <Link to='/dashboard/company'>Company</Link>
               </li>
               <li>

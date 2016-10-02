@@ -2,7 +2,8 @@
 @import 'footer';
 @import 'helpers';
 @import 'notification-banner';
-@import 'dashboard/sidebar.scss';
+@import 'dashboard/sidebar';
+@import 'animate';
 
 html * {
   font-family: Lato;

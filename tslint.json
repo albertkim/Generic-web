@@ -35,6 +35,8 @@
     "ordered-imports": false,
     "trailing-comma": false,
     "member-access": [false],
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "max-line-length": [false]
   }
 }

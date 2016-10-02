@@ -16,5 +16,7 @@ export default {
   POST_LOGIN_EMAIL: `/api/v1/login`,
   POST_REGISTER_EMAIL: `/api/v1/register`,
   GET_ME: `/api/v1/user/me`,
-  PATCH_ME: `/api/v1/user/me`
+  PATCH_ME: `/api/v1/user/me`,
+  GET_USER_PREFERENCES: `/api/v1/user/me/preferences`,
+  PATCH_USER_PREFERENCES: `/api/v1/user/me/preferences`
 }

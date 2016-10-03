@@ -66,7 +66,6 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
   }
 
   save(updateObject: any) {
-    console.log(updateObject)
     this.props.updateUser(updateObject, (error: any, response: any) => {
       if (error) {
         console.log(error)

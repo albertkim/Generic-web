@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {ApplicationState} from '../../models/ApplicationState'
-import {Company} from '../../models/Company'
+import {ApplicationState} from '../../../models/ApplicationState'
+import {Company} from '../../../models/Company'
 
 interface StateProps {
   company: Company
@@ -19,7 +19,6 @@ class DashboardCompany extends React.Component<StateProps, void> {
     return (
       <div className='container'>
         <h1>Company: {this.props.company.name}</h1>
-        <hr />
       </div>
     )
   }

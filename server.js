@@ -3,15 +3,25 @@ var express = require('express')
 var ReactDOMServer = require('react-dom/server')
 var WebpackDevServer = require('webpack-dev-server')
 var config = require('./webpack.config')
+var path = require('path')
 
-new WebpackDevServer(
+const server = new WebpackDevServer(
   webpack(config), {
     publicPath: config.output.publicPath,
-    historyApiFallback: true
+    contentBase: 'app',
+    historyApiFallback: {
+      index: '/'
+    }
   }
-).listen(8080, 'localhost', (error, result) => {
-  if (error) { console.log(error); }
-  console.log('Listening at localhost:8080');
+)
+
+server.use('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+server.listen(8080, 'localhost', (error, result) => {
+  if (error) { console.log(error) }
+  console.log('Listening at localhost:8080')
 })
 
 // Server-side react sendering with redux: https://medium.com/@firasd/quick-start-tutorial-universal-react-with-server-side-rendering-76fe5363d6e#.mmtc61rw9

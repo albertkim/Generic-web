@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var path = require('path')
 
 module.exports = {
   context: __dirname,
@@ -6,8 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
-    './app/index.html',
-    './app/index.tsx'
+    __dirname + '/app/index.tsx'
   ],
 
   output: {
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   // Enable sourcemaps for debugging webpack's output.
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
@@ -26,10 +26,7 @@ module.exports = {
 
   module: {
     loaders: [
-      {
-        test: /index\.html$/,
-        loader: 'file?name=index.html',
-      },
+      { test: /\.html$/, loader: 'file?name=[name].[ext]' },
       // Was matching ts/tsx twice, can into implicit any errors
       // http://stackoverflow.com/questions/33969292/how-do-i-get-this-typescript-webpack-project-to-compile-without-error
       { test: /\.tsx?$/, loader: 'ts-loader' },

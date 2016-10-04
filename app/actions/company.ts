@@ -1,4 +1,4 @@
-import {Company, ICreateCompany} from '../models/Company'
+import {Company, ICreateCompany, IUpdateCompany} from '../models/Company'
 import {IThunkAction} from './actions'
 import {ADD_ERROR} from './errors'
 import Endpoints from '../constants/Endpoints'
@@ -50,5 +50,19 @@ export function createCompany(createObject: ICreateCompany, callback: (error?: a
         }
       })
     })
+  }
+}
+
+export const UPDATE_COMPANY = 'UPDATE_COMPANY'
+export type UPDATE_COMPANY = Company
+
+export function updateCompany(updateObject: IUpdateCompany) {
+  const request = Endpoints.Axios.patch(
+    Endpoints.UPDATE_COMPANY.replace(':companyId', updateObject.id.toString()),
+    updateObject)
+
+  return {
+    type: UPDATE_COMPANY,
+    payload: request
   }
 }

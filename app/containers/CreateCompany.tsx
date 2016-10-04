@@ -9,18 +9,20 @@ interface DispatchProps {
   createCompany: (createObject: ICreateCompany, callback: (error?: any, company?: Company) => void) => any
 }
 
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    createCompany: bindActionCreators(createCompany, dispatch)
-  }
-}
-
 class CreateCompany extends React.Component<DispatchProps, void> {
 
-  save() {
+  private nameInput: HTMLInputElement
+  private descriptionInput: HTMLInputElement
+
+  save(e: React.FormEvent<HTMLButtonElement>) {
+    e.preventDefault()
+
+    const name = this.nameInput.value
+    const description = this.descriptionInput.value
+
     this.props.createCompany({
-      name: 'New company',
-      description: 'Test'
+      name: name,
+      description: description
     }, (error: any, company: Company) => {
       if (!error) {
         browserHistory.push(`/company/${company.id}/dashboard`)
@@ -29,15 +31,38 @@ class CreateCompany extends React.Component<DispatchProps, void> {
   }
 
   render() {
+
     return (
       <div className='container'>
         <h1>Create a company</h1>
-        <hr />
-        <button className='btn btn-primary' onClick={() => this.save()}>Create</button>
+
+        <div className='row'>
+
+          <div className='col-md-6'>
+            <form className='form'>
+              <div className='form-group'>
+                <span>Company name</span>
+                <input className='form-control' ref={ref => this.nameInput = ref} />
+              </div>
+              <div className='form-group'>
+                <span>Description</span>
+                <input className='form-control' ref={ref => this.descriptionInput = ref} />
+              </div>
+              <button className='btn btn-primary' onClick={this.save.bind(this)}>Create</button>
+            </form>
+          </div>
+
+          <div>
+            <p>Create your company here.</p>
+          </div>
+
+        </div>
+
       </div>
     )
+
   }
 
 }
 
-export default connect(null, mapDispatchToProps)(CreateCompany)
+export default connect(null, {createCompany})(CreateCompany)

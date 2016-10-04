@@ -11,12 +11,20 @@ export interface ICreateCompany {
   description?: string
 }
 
+export interface IUpdateCompany {
+  id: number,
+  name: string,
+  description?: string
+}
+
 export class Company {
   public id: number
   public name: string
+  public description: string
 
   constructor(json: any) {
     this.id = json.id
     this.name = json.name
+    this.description = json.description
   }
 }

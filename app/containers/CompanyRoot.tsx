@@ -1,34 +1,47 @@
 import * as React from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {getCompany} from '../actions/company'
+import {ApplicationState} from '../models/ApplicationState'
+import {Company} from '../models/Company'
 
 interface OwnProps {
   params: any
+}
+
+interface StateProps {
+  company: Company
+}
+
+function mapStateToProps(state: ApplicationState): StateProps {
+  return {
+    company: state.company
+  }
 }
 
 interface DispatchProps {
   getCompany: Function
 }
 
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    getCompany: bindActionCreators(getCompany, dispatch)
-  }
-}
-
-class CompanyRoot extends React.Component<DispatchProps & OwnProps, void> {
+class CompanyRoot extends React.Component<StateProps & DispatchProps & OwnProps, void> {
   componentDidMount() {
     this.props.getCompany(this.props.params.companyId)
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
+    if (!this.props.company) {
+      return (
+        <div>
+          <span>Loading...</span>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          {this.props.children}
+        </div>
+      )
+    }
   }
 }
 
-export default connect(null, mapDispatchToProps)(CompanyRoot)
+export default connect(mapStateToProps, {getCompany})(CompanyRoot)

@@ -2,8 +2,8 @@ import * as React from 'react'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../../../models/ApplicationState'
 import {Company} from '../../../models/Company'
-import {EditableNameRow} from './NameRow'
-import {updateCompany} from '../../../actions/company'
+import {EditableTextTableRow} from '../../../components/EditableTextTableRow'
+import {getCompany, updateCompany} from '../../../actions/company'
 
 interface OwnState {
   isNameEdit: boolean,
@@ -15,6 +15,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+  getCompany: Function
   updateCompany: Function
 }
 
@@ -51,18 +52,24 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
 
   save(updateObject: any) {
     updateObject.id = this.props.company.id
-    this.props.updateCompany(updateObject)
+    this.props.updateCompany(updateObject).then(() => {
+      this.props.getCompany(this.props.company.id)
+      this.setState({
+        isNameEdit: false,
+        isDescriptionEdit: false
+      })
+    })
   }
 
   render() {
-    let nameRow = <EditableNameRow
-                    fieldName={'name'}
+    let nameRow = <EditableTextTableRow
+                    fieldName={'Name'}
                     value={this.props.company.name}
                     isEdit={this.state.isNameEdit}
                     onClickSave={value => this.save({name: value})}
                     onClickEdit={this.toggleEdit.bind(this, 'name')} />
-    let descriptionRow = <EditableNameRow
-                          fieldName={'description'}
+    let descriptionRow = <EditableTextTableRow
+                          fieldName={'Description'}
                           value={this.props.company.description}
                           isEdit={this.state.isDescriptionEdit}
                           onClickSave={value => this.save({description: value})}
@@ -70,14 +77,21 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
 
     return (
       <div>
-        <h1>Company: {this.props.company.name}</h1>
+        <div className='col-md-12'>
+          <h1>{this.props.company.name}</h1>
+        </div>
         <div className='col-md-6'>
-          <table className='table '>
-            <tbody>
-              {nameRow}
-              {descriptionRow}
-            </tbody>
-          </table>
+          <div className='col-md-12'>
+            <h3>Basic info</h3>
+          </div>
+          <div className='col-md-12'>
+            <table className='table '>
+              <tbody>
+                {nameRow}
+                {descriptionRow}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )
@@ -85,4 +99,4 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
 
 }
 
-export default connect(mapStateToProps, {updateCompany})(DashboardCompany)
+export default connect(mapStateToProps, {updateCompany, getCompany})(DashboardCompany)

@@ -8,7 +8,7 @@ interface DisplayStateProps {
   onClickEdit: () => void
 }
 
-export class EditableNameRow extends React.Component<DisplayStateProps, void> {
+export class EditableTextTableRow extends React.Component<DisplayStateProps, void> {
   private nameInput: HTMLInputElement
 
   save() {

@@ -20,6 +20,7 @@ import Dashboard from './containers/Dashboard'
 import DashboardWelcome from './containers/Dashboard/DashboardWelcome'
 import DashboardCompany from './containers/Dashboard/DashboardCompany'
 import DashboardContact from './containers/Dashboard/DashboardContact'
+import DashboardSubscription from './containers/Dashboard/DashboardSubscription'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 import 'core-js'
@@ -54,6 +55,7 @@ ReactDOM.render((
             <Route path='profile' component={Profile} />
             <Route path='company' component={DashboardCompany} />
             <Route path='contact' component={DashboardContact} />
+            <Route path='subscription' component={DashboardSubscription} />
           </Route>
         </Route>
       </Route>

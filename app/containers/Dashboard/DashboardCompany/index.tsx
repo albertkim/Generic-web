@@ -76,7 +76,7 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
                           onClickEdit={this.toggleEdit.bind(this, 'description')} />
 
     return (
-      <div>
+      <div className='row'>
         <div className='col-md-12'>
           <h1>{this.props.company.name}</h1>
         </div>

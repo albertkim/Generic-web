@@ -20,7 +20,7 @@ export default class Dashboard extends React.Component<{params: {companyId: numb
                 <Link to={`${companyDashboardUrl}/company`}>Company</Link>
               </li>
               <li>
-                <a href='#'>Subscription</a>
+                <Link to={`${companyDashboardUrl}/subscription`}>Subscription</Link>
               </li>
               <li>
                 <a href='#'>Events</a>

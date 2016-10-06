@@ -14,6 +14,8 @@ export interface IAction<T> {
 
 export type IThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S, extraArgument: E) => R
 
+export type IPromiseAction<T> = {type: string, payload: Promise<T>}
+
 export const LOGIN_USER_SUCCESSFUL = 'LOGIN_USER_SUCCESSFUL'
 export type LOGIN_USER_SUCCESSFUL = {user: User, authToken: string}
 

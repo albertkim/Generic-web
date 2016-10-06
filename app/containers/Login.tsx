@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import FormError from '../components/FormError'
-import {Dispatch, bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../models/ApplicationState'
 import {login, register, LOGIN_USER_ERROR, REGISTER_USER_ERROR} from '../actions/actions'
@@ -12,7 +11,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  login: Function,
+  login: Function
   register: Function
 }
 
@@ -22,14 +21,10 @@ function mapStateToProps(state: ApplicationState): StateProps {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<any>): DispatchProps {
-  return {
-    login: bindActionCreators(login, dispatch),
-    register: bindActionCreators(register, dispatch)
-  }
-}
-
 class Login extends React.Component<StateProps & DispatchProps, void> {
+  private loginEmailInput: HTMLInputElement
+  private registerEmailInput: HTMLInputElement
+
   login() {
     const email = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['login-email']).value
     const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['login-password']).value
@@ -99,4 +94,4 @@ class Login extends React.Component<StateProps & DispatchProps, void> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, {login, register})(Login)

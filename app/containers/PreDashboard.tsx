@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import {ApplicationState} from '../models/ApplicationState'
@@ -17,12 +16,6 @@ interface DispatchProps {
 function mapStateToProps(state: ApplicationState): StateProps {
   return {
     companyUsers: state.companyUsers
-  }
-}
-
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    getMyCompanies: bindActionCreators(getMyCompanies, dispatch)
   }
 }
 
@@ -52,4 +45,4 @@ class PreDashboard extends React.Component<StateProps & DispatchProps, void> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PreDashboard)
+export default connect(mapStateToProps, {getMyCompanies})(PreDashboard)

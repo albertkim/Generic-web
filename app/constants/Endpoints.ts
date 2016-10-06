@@ -1,8 +1,8 @@
-import * as axios from 'axios'
+import Axios from 'axios'
 
 const RootApi = 'http://localhost:80'
 
-const Axios = axios.create({
+const axios = Axios.create({
   baseURL: RootApi,
   headers: {
     Authorization: `bearer ${window.localStorage.getItem('authToken')}`
@@ -11,7 +11,7 @@ const Axios = axios.create({
 
 export default {
   ROOT_API_URL: RootApi,
-  Axios: Axios,
+  Axios: axios,
   GET_PING: `/ping`,
   POST_LOGIN_EMAIL: `/api/v1/login`,
   POST_REGISTER_EMAIL: `/api/v1/register`,

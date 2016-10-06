@@ -1,12 +1,12 @@
 import * as React from 'react'
-import {browserHistory} from 'react-router'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {createCompany} from '../actions/company'
-import {Company, ICreateCompany} from '../models/Company'
+import {browserHistory} from 'react-router'
+import {IAction} from '../actions/actions'
+import {createCompany, CREATE_COMPANY_REQUEST} from '../actions/company'
+import {ICreateCompany} from '../models/Company'
 
 interface DispatchProps {
-  createCompany: (createObject: ICreateCompany, callback: (error?: any, company?: Company) => void) => any
+  createCompany: (createObject: ICreateCompany) => Promise<IAction<CREATE_COMPANY_REQUEST>>
 }
 
 class CreateCompany extends React.Component<DispatchProps, void> {
@@ -23,9 +23,11 @@ class CreateCompany extends React.Component<DispatchProps, void> {
     this.props.createCompany({
       name: name,
       description: description
-    }, (error: any, company: Company) => {
-      if (!error) {
-        browserHistory.push(`/company/${company.id}/dashboard`)
+    }).then(action => {
+      if (action.error) {
+        console.log(action.error)
+      } else {
+        browserHistory.push(`/company/${action.payload.id}/dashboard`)
       }
     })
   }
@@ -38,7 +40,7 @@ class CreateCompany extends React.Component<DispatchProps, void> {
 
         <div className='row'>
 
-          <div className='col-md-6'>
+          <div className='col-sm-6'>
             <form className='form'>
               <div className='form-group'>
                 <span>Company name</span>
@@ -52,7 +54,7 @@ class CreateCompany extends React.Component<DispatchProps, void> {
             </form>
           </div>
 
-          <div>
+          <div className='col-sm-6'>
             <p>Create your company here.</p>
           </div>
 

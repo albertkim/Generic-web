@@ -1,97 +1,110 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import FormError from '../components/FormError'
 import {connect} from 'react-redux'
-import {ApplicationState} from '../models/ApplicationState'
-import {login, register, LOGIN_USER_ERROR, REGISTER_USER_ERROR} from '../actions/actions'
-import {IError, findError} from '../models/Error'
+import {browserHistory} from 'react-router'
+import {IAction, login, register} from '../actions/actions'
 
-interface StateProps {
-  errors?: IError[]
+interface OwnProps {
+  loginError: string
+  registerError: string
 }
 
 interface DispatchProps {
-  login: Function
-  register: Function
+  login: (email: string, password: string) => Promise<IAction<any>>
+  register: (email: string, password: string) => Promise<IAction<any>>
 }
 
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    errors: state.errors
-  }
-}
-
-class Login extends React.Component<StateProps & DispatchProps, void> {
+class Login extends React.Component<DispatchProps, OwnProps> {
   private loginEmailInput: HTMLInputElement
+  private loginPasswordInput: HTMLInputElement
   private registerEmailInput: HTMLInputElement
+  private registerPasswordInput: HTMLInputElement
+
+  constructor() {
+    super()
+    this.state = {
+      loginError: null,
+      registerError: null
+    }
+  }
 
   login() {
-    const email = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['login-email']).value
-    const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['login-password']).value
+    const email = this.loginEmailInput.value
+    const password = this.loginPasswordInput.value
 
-    this.props.login(email, password)
-  }
-
-  loginErrorComponent() {
-    const error = findError(this.props.errors, LOGIN_USER_ERROR)
-    const message = error ? (error.message || 'There was an error logging in') : null
-    return <FormError message={message} />
+    this.props.login(email, password).then(result => {
+      if (result.error) {
+        this.setState({
+          loginError: result.payload || 'There as an error logging in',
+          registerError: this.state.registerError
+        })
+      } else {
+        browserHistory.goBack()
+      }
+    })
   }
 
   register() {
-    const email = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-email']).value
-    const password = ReactDOM.findDOMNode<HTMLInputElement>(this.refs['register-password']).value
+    const email = this.registerEmailInput.value
+    const password = this.registerPasswordInput.value
 
-    this.props.register(email, password)
-  }
-
-  registerErrorComponent() {
-    const error = findError(this.props.errors, REGISTER_USER_ERROR)
-    const message = error ? (error.message || 'There was an error registering your account') : null
-    return <FormError message={message} />
+    this.props.register(email, password).then(result => {
+      if (result.error) {
+        this.setState({
+          registerError: result.payload || 'There as an error logging in',
+          loginError: this.state.loginError
+        })
+      } else {
+        browserHistory.goBack()
+      }
+    })
   }
 
   render() {
     return (
-      <div className='container-fluid'>
+      <div className='container'>
         <div className='row'>
-          <h1>Login</h1>
-          <hr />
 
           <div className='col-md-6'>
-            <div className='form-group'>
-              <label>Email</label>
-              <input type='email' className='form-control' ref='login-email' />
-            </div>
-            <div className='form-group'>
-              <label>Password</label>
-              <input type='password' className='form-control' ref='login-password' />
-            </div>
-            <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
-            <p>{this.loginErrorComponent()}</p>
-          </div>
-        </div>
+            <h1>Login</h1>
+            <hr />
 
-        <div className='row'>
-          <h1>Register</h1>
-          <hr />
+            <div className='col-md-12'>
+              <div className='form-group'>
+                <label>Email</label>
+                <input type='email' className='form-control' ref={ref => this.loginEmailInput = ref} />
+              </div>
+              <div className='form-group'>
+                <label>Password</label>
+                <input type='password' className='form-control' ref={ref => this.loginPasswordInput = ref} />
+              </div>
+              <button className='btn btn-default' onClick={this.login.bind(this)}>Submit</button>
+              <p><FormError message={this.state.loginError} /></p>
+            </div>
+          </div>
 
           <div className='col-md-6'>
-            <div className='form-group'>
-              <label>Email</label>
-              <input type='email' className='form-control' ref='register-email' />
+            <h1>Register</h1>
+            <hr />
+
+            <div className='col-md-12'>
+              <div className='form-group'>
+                <label>Email</label>
+                <input type='email' className='form-control' ref={ref => this.registerEmailInput = ref} />
+              </div>
+              <div className='form-group'>
+                <label>Password</label>
+                <input type='password' className='form-control' ref={ref => this.registerPasswordInput = ref} />
+              </div>
+              <button className='btn btn-default' onClick={this.register.bind(this)}>Submit</button>
+              <p><FormError message={this.state.registerError} /></p>
             </div>
-            <div className='form-group'>
-              <label>Password</label>
-              <input type='password' className='form-control' ref='register-password' />
-            </div>
-            <button className='btn btn-default' onClick={this.register.bind(this)}>Submit</button>
-            <p>{this.registerErrorComponent()}</p>
           </div>
+
         </div>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, {login, register})(Login)
+export default connect(null, {login, register})(Login)

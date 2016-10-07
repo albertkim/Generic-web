@@ -1,30 +1,15 @@
 import * as React from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import NavigationBar from './containers/NavigationBar'
 import NotificationBanner from './containers/NotificationBanner'
-import {ApplicationState} from './models/ApplicationState'
 import {fetchCurrentUser, connectToServer} from './actions/actions'
-
-interface StateProps {}
 
 interface DispatchProps {
   fetchCurrentUser: Function,
   connectToServer: Function
 }
 
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {}
-}
-
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    fetchCurrentUser: bindActionCreators(fetchCurrentUser, dispatch),
-    connectToServer: bindActionCreators(connectToServer, dispatch)
-  }
-}
-
-class App extends React.Component<StateProps & DispatchProps, void> {
+class App extends React.Component<DispatchProps, void> {
 
   componentDidMount() {
     this.props.fetchCurrentUser()
@@ -47,4 +32,4 @@ class App extends React.Component<StateProps & DispatchProps, void> {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, {fetchCurrentUser, connectToServer})(App)

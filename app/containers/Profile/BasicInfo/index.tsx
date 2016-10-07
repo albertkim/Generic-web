@@ -1,6 +1,4 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {ApplicationState} from '../../../models/ApplicationState'
 import {User} from '../../../models/User'
@@ -27,13 +25,6 @@ interface OwnState {
 function mapStateToProps(state: ApplicationState): StateProps {
   return {
     user: state.user
-  }
-}
-
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    fetchCurrentUser: bindActionCreators(fetchCurrentUser, dispatch),
-    updateUser: bindActionCreators(updateUser, dispatch)
   }
 }
 
@@ -130,4 +121,4 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, {fetchCurrentUser, updateUser})(Profile)

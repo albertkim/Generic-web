@@ -3,7 +3,7 @@ import {Company} from '../models/Company'
 import Endpoints from '../constants/Endpoints'
 
 export class CurrentCompanyStore {
-  @observable company: Company
+  @observable company?: Company
 
   getById(companyId: number) {
     const url = Endpoints.GET_COMPANY.replace(':companyId', companyId.toString())
@@ -16,6 +16,15 @@ export class CurrentCompanyStore {
 
   create(createObject: any) {
     return Endpoints.Axios.post(Endpoints.POST_COMPANY, createObject).then(response => {
+      const company = new Company(response.data)
+      this.company = company
+      return company
+    })
+  }
+
+  update(updateObject: any) {
+    const url = Endpoints.UPDATE_COMPANY.replace(':companyId', updateObject.id.toString())
+    return Endpoints.Axios.patch(url, updateObject).then(response => {
       const company = new Company(response.data)
       this.company = company
       return company

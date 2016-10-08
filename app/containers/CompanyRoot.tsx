@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {inject, observer} from 'mobx-react'
-import {getCompany} from '../actions/company'
 import {CurrentCompanyStore} from '../stores/CurrentCompanyStore'
 import {Company} from '../models/Company'
 

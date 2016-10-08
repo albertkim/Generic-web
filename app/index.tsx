@@ -13,9 +13,9 @@ import {CompanyRoot} from './containers/CompanyRoot'
 import {CreateCompany} from './containers/CreateCompany'
 import {Dashboard} from './containers/Dashboard'
 import {DashboardWelcome} from './containers/Dashboard/DashboardWelcome'
-import DashboardCompany from './containers/Dashboard/DashboardCompany'
-import DashboardContact from './containers/Dashboard/DashboardContact'
-import DashboardSubscription from './containers/Dashboard/DashboardSubscription'
+import {DashboardCompany} from './containers/Dashboard/DashboardCompany'
+import {DashboardContact} from './containers/Dashboard/DashboardContact'
+import {DashboardSubscription} from './containers/Dashboard/DashboardSubscription'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 import 'core-js'
@@ -23,11 +23,6 @@ import {CurrentUserStore} from './stores/currentUserStore'
 import {ServerStore} from './stores/ServerStore'
 import {UserCompaniesStore} from './stores/UserCompaniesStore'
 import {CurrentCompanyStore} from './stores/CurrentCompanyStore'
-
-// General Typescript+Redux:
-// https://rjzaworski.com/2016/08/typescript-redux-and-react
-// Reference for creating redux-connected components without having to pass down props:
-// http://www.mattgreer.org/articles/typescript-react-and-redux/
 
 declare const window: any
 
@@ -37,8 +32,6 @@ const userCompaniesStore = new UserCompaniesStore()
 const currentCompanyStore = new CurrentCompanyStore()
 
 ReactDOM.render((
-  // Reference for middleware is not a function error
-  // https://github.com/reactjs/redux/issues/533
   <Provider currentUserStore={currentUserStore}
             serverStore={serverStore}
             userCompaniesStore={userCompaniesStore}

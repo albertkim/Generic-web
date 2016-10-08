@@ -1,31 +1,20 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
-import {ApplicationState} from '../../../models/ApplicationState'
-import {Company} from '../../../models/Company'
+import {inject, observer} from 'mobx-react'
+import {CurrentCompanyStore} from '../../../stores/CurrentCompanyStore'
 import {EditableTextTableRow} from '../../../components/EditableTextTableRow'
-import {getCompany, updateCompany} from '../../../actions/company'
 
 interface OwnState {
   isNameEdit: boolean,
   isDescriptionEdit: boolean
 }
 
-interface StateProps {
-  company: Company
+interface StoreProps {
+  currentCompanyStore: CurrentCompanyStore
 }
 
-interface DispatchProps {
-  getCompany: Function
-  updateCompany: Function
-}
-
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    company: state.company
-  }
-}
-
-class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnState> {
+@inject('currentCompanyStore')
+@observer
+export class DashboardCompany extends React.Component<StoreProps, OwnState> {
 
   constructor() {
     super()
@@ -51,9 +40,8 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
   }
 
   save(updateObject: any) {
-    updateObject.id = this.props.company.id
-    this.props.updateCompany(updateObject).then(() => {
-      this.props.getCompany(this.props.company.id)
+    updateObject.id = this.props.currentCompanyStore!.company!.id
+    this.props.currentCompanyStore!.update(updateObject).then(() => {
       this.setState({
         isNameEdit: false,
         isDescriptionEdit: false
@@ -62,15 +50,17 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
   }
 
   render() {
+    const company = this.props.currentCompanyStore!.company!
+
     let nameRow = <EditableTextTableRow
                     fieldName={'Name'}
-                    value={this.props.company.name}
+                    value={company.name}
                     isEdit={this.state.isNameEdit}
                     onClickSave={value => this.save({name: value})}
                     onClickEdit={this.toggleEdit.bind(this, 'name')} />
     let descriptionRow = <EditableTextTableRow
                           fieldName={'Description'}
-                          value={this.props.company.description}
+                          value={company.description}
                           isEdit={this.state.isDescriptionEdit}
                           onClickSave={value => this.save({description: value})}
                           onClickEdit={this.toggleEdit.bind(this, 'description')} />
@@ -78,7 +68,7 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
     return (
       <div className='row'>
         <div className='col-md-12'>
-          <h1>{this.props.company.name}</h1>
+          <h1>{company.name}</h1>
         </div>
         <div className='col-md-6'>
           <div className='col-md-12'>
@@ -99,4 +89,3 @@ class DashboardCompany extends React.Component<StateProps & DispatchProps, OwnSt
 
 }
 
-export default connect(mapStateToProps, {updateCompany, getCompany})(DashboardCompany)

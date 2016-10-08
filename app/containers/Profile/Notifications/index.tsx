@@ -2,7 +2,6 @@ import * as React from 'react'
 import {inject, observer} from 'mobx-react'
 import {CurrentUserStore} from '../../../stores/CurrentUserStore'
 import {IUserPreference} from '../../../models/UserPreference'
-import {fetchUserPreferences, updateUserPreference} from '../../../actions/userPreference'
 import {UserPreferenceRow, IUserPreferenceValueChange} from './UserPreferenceRow'
 
 interface StoreProps {

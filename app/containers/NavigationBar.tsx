@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {inject, observer} from 'mobx-react'
 import {CurrentUserStore} from '../stores/CurrentUserStore'
 import {ServerStore} from '../stores/ServerStore'
@@ -10,6 +10,7 @@ export class NavigationBar extends React.Component<{currentUserStore?: CurrentUs
 
   logout() {
     this.props.currentUserStore!.logout()
+    browserHistory.push('/')
   }
 
   getConnectedToServer() {

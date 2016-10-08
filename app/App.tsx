@@ -1,21 +1,25 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
-import NavigationBar from './containers/NavigationBar'
-import NotificationBanner from './containers/NotificationBanner'
-import {fetchCurrentUser, connectToServer} from './actions/actions'
+import {inject, observer} from 'mobx-react'
+import {ServerStore} from './stores/ServerStore'
+import {CurrentUserStore} from './stores/CurrentUserStore'
+import {UserCompaniesStore} from './stores/UserCompaniesStore'
+import {NavigationBar} from './containers/NavigationBar'
+import {NotificationBanner} from './containers/NotificationBanner'
 
-interface DispatchProps {
-  fetchCurrentUser: Function,
-  connectToServer: Function
+interface StoreProps {
+  serverStore?: ServerStore
+  currentUserStore?: CurrentUserStore,
+  userCompaniesStore?: UserCompaniesStore
 }
 
-class App extends React.Component<DispatchProps, void> {
+@inject('serverStore', 'currentUserStore', 'userCompaniesStore')
+@observer
+export class App extends React.Component<StoreProps, void> {
 
   componentDidMount() {
-    this.props.fetchCurrentUser()
-
-    this.props.connectToServer()
-    // setInterval(() => this.props.connectToServer(), 10000)
+    // this.props.fetchCurrentUser()
+    this.props.currentUserStore.getCurrentUser()
+    this.props.serverStore.connectToServer()
   }
 
   render() {
@@ -31,5 +35,3 @@ class App extends React.Component<DispatchProps, void> {
   }
 
 }
-
-export default connect(null, {fetchCurrentUser, connectToServer})(App)

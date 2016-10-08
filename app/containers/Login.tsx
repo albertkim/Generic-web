@@ -1,20 +1,21 @@
 import * as React from 'react'
+import {inject, observer} from 'mobx-react'
 import FormError from '../components/FormError'
-import {connect} from 'react-redux'
 import {browserHistory} from 'react-router'
-import {IAction, login, register} from '../actions/actions'
+import {CurrentUserStore} from '../stores/CurrentUserStore'
 
 interface OwnProps {
   loginError: string
   registerError: string
 }
 
-interface DispatchProps {
-  login: (email: string, password: string) => Promise<IAction<any>>
-  register: (email: string, password: string) => Promise<IAction<any>>
+interface StoreProps {
+  currentUserStore: CurrentUserStore
 }
 
-class Login extends React.Component<DispatchProps, OwnProps> {
+@inject('currentUserStore')
+@observer
+export class Login extends React.Component<StoreProps, OwnProps> {
   private loginEmailInput: HTMLInputElement
   private loginPasswordInput: HTMLInputElement
   private registerEmailInput: HTMLInputElement
@@ -32,15 +33,13 @@ class Login extends React.Component<DispatchProps, OwnProps> {
     const email = this.loginEmailInput.value
     const password = this.loginPasswordInput.value
 
-    this.props.login(email, password).then(result => {
-      if (result.error) {
-        this.setState({
-          loginError: result.payload || 'There as an error logging in',
-          registerError: this.state.registerError
-        })
-      } else {
-        browserHistory.goBack()
-      }
+    this.props.currentUserStore.login(email, password).then(result => {
+      browserHistory.goBack()
+    }).catch(error => {
+      this.setState({
+        loginError: error.response.data.message || 'There as an error logging in',
+        registerError: this.state.registerError
+      })
     })
   }
 
@@ -48,15 +47,13 @@ class Login extends React.Component<DispatchProps, OwnProps> {
     const email = this.registerEmailInput.value
     const password = this.registerPasswordInput.value
 
-    this.props.register(email, password).then(result => {
-      if (result.error) {
-        this.setState({
-          registerError: result.payload || 'There as an error logging in',
-          loginError: this.state.loginError
-        })
-      } else {
-        browserHistory.goBack()
-      }
+    this.props.currentUserStore.register(email, password).then(result => {
+      browserHistory.goBack()
+    }).catch(error => {
+      this.setState({
+        registerError: error.reponse.data.message || 'There as an error logging in',
+        loginError: this.state.loginError
+      })
     })
   }
 
@@ -106,5 +103,3 @@ class Login extends React.Component<DispatchProps, OwnProps> {
     )
   }
 }
-
-export default connect(null, {login, register})(Login)

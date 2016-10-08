@@ -1,30 +1,16 @@
 import * as React from 'react'
-import {Link} from 'react-router'
-import {connect} from 'react-redux'
-import {User} from '../models/User'
-import {ApplicationState} from '../models/ApplicationState'
+import {inject, observer} from 'mobx-react'
+import {ServerStore} from '../stores/ServerStore'
+import {CurrentUserStore} from '../stores/CurrentUserStore'
 
-interface OwnState {
-  show: boolean
+interface StateProps {
+  currentUserStore?: CurrentUserStore
+  serverStore?: ServerStore
 }
 
-interface NotificationBannerProps {
-  user: User,
-  isConnectedToServer?: boolean
-}
-
-function mapStateToProps(state: ApplicationState): NotificationBannerProps {
-  return {
-    user: state.user,
-    isConnectedToServer: state.isConnectedToServer
-  }
-}
-
-function mapDispatchToProps(dispatch: any) {
-  return {}
-}
-
-class NotificationBanner extends React.Component<NotificationBannerProps, OwnState> {
+@inject('serverStore', 'currentUserStore')
+@observer
+export class NotificationBanner extends React.Component<StateProps, {show: boolean}> {
 
   constructor() {
     super()
@@ -48,7 +34,7 @@ class NotificationBanner extends React.Component<NotificationBannerProps, OwnSta
         <span />
       )
 
-    } else if (this.props.isConnectedToServer === false) {
+    } else if (this.props.serverStore.isConnectedToServer === 'Disconnected') {
 
       return (
         <div id='server-connection-notification-banner'>
@@ -57,13 +43,13 @@ class NotificationBanner extends React.Component<NotificationBannerProps, OwnSta
         </div>
       )
 
-    } else if (!this.props.user) {
+    } else if (!this.props.currentUserStore.currentUser) {
 
       return (
         <span />
       )
 
-    } else if (this.props.user.isEmailVerified === false) {
+    } else if (this.props.currentUserStore.currentUser.isEmailVerified === false) {
 
       return (
         <div id='verify-email-notification-banner'>
@@ -90,5 +76,3 @@ class NotificationBanner extends React.Component<NotificationBannerProps, OwnSta
   }
 
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationBanner)

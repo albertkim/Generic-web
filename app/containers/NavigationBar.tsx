@@ -1,46 +1,24 @@
 import * as React from 'react'
 import {Link} from 'react-router'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-import {ApplicationState} from '../models/ApplicationState'
-import {User} from '../models/User'
-import {logout} from '../actions/actions'
+import {inject, observer} from 'mobx-react'
+import {CurrentUserStore} from '../stores/CurrentUserStore'
+import {ServerStore} from '../stores/ServerStore'
 
-interface StateProps {
-  user?: User,
-  isConnectedToServer?: boolean
-}
-
-interface DispatchProps {
-  logout: Function
-}
-
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    user: state.user,
-    isConnectedToServer: state.isConnectedToServer
-  }
-}
-
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    logout: bindActionCreators(logout, dispatch)
-  }
-}
-
-class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
+@inject('currentUserStore', 'serverStore')
+@observer
+export class NavigationBar extends React.Component<{currentUserStore?: CurrentUserStore, serverStore?: ServerStore}, void> {
 
   logout() {
-    this.props.logout()
+    this.props.currentUserStore.logout()
   }
 
   getConnectedToServer() {
-    if (this.props.isConnectedToServer == null) {
+    if (this.props.serverStore.isConnectedToServer === 'Connecting') {
       // Server connection hasn't finished yet
       return <span className='label label-default'>Connecting...</span>
-    } else if (this.props.isConnectedToServer === true) {
+    } else if (this.props.serverStore.isConnectedToServer === 'Connected') {
       return <span className='label label-success'>Connected to API server</span>
-    } else if (this.props.isConnectedToServer === false) {
+    } else if (this.props.serverStore.isConnectedToServer === 'Disconnected') {
       return <span className='label label-danger'>Our servers are currently down</span>
     }
   }
@@ -48,11 +26,11 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
   render() {
     let profileSection: JSX.Element
 
-    if (this.props.user) {
+    if (this.props.currentUserStore.currentUser) {
       profileSection = (
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/preDashboard'>Dashboard</Link></li>
-          <li><Link to='/profile'>{this.props.user.email}</Link></li>
+          <li><Link to='/profile'>{this.props.currentUserStore.currentUser.email}</Link></li>
           <li><a href='#' onClick={this.logout.bind(this)} style={{marginRight: '2em'}}>Logout</a></li>
           {/*<li><a href='' onClick={() => this.logout()}>Logout</a></li>*/}
         </ul>
@@ -104,5 +82,3 @@ class NavigationBar extends React.Component<StateProps & DispatchProps, void> {
   }
 
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

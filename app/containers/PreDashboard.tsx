@@ -1,35 +1,21 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import {ApplicationState} from '../models/ApplicationState'
-import {ICompanyUser} from '../models/Company'
-import {getMyCompanies} from '../actions/user'
-
-interface StateProps {
-  companyUsers: ICompanyUser[]
-}
-
-interface DispatchProps {
-  getMyCompanies: Function
-}
-
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    companyUsers: state.companyUsers
-  }
-}
+import {inject, observer} from 'mobx-react'
+import {UserCompaniesStore} from '../stores/UserCompaniesStore'
 
 // Sidebar reference: https://github.com/BlackrockDigital/startbootstrap-simple-sidebar
-class PreDashboard extends React.Component<StateProps & DispatchProps, void> {
+@inject('userCompaniesStore')
+@observer
+export class PreDashboard extends React.Component<{userCompaniesStore: UserCompaniesStore}, void> {
   componentDidMount() {
-    this.props.getMyCompanies()
+    this.props.userCompaniesStore.getMyCompanies()
   }
 
   render() {
     return (
       <div className='container'>
         <div style={{height: '5em'}} />
-        {this.props.companyUsers.map(companyUser => {
+        {this.props.userCompaniesStore.myCompanies.map(companyUser => {
           const dashboardLink = `/company/${companyUser.company.id}/dashboard`
           return (
             <div key={companyUser.company.id}>
@@ -44,5 +30,3 @@ class PreDashboard extends React.Component<StateProps & DispatchProps, void> {
     )
   }
 }
-
-export default connect(mapStateToProps, {getMyCompanies})(PreDashboard)

@@ -1,19 +1,14 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as promiseMiddleware from 'redux-promise'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import {createStore, applyMiddleware, compose} from 'redux'
-import {syncHistoryWithStore} from 'react-router-redux'
-import {Provider} from 'react-redux'
-import thunk from 'redux-thunk'
-import {reducers} from './reducers'
-import App from './App'
+import {Provider} from 'mobx-react'
+import {App} from './App'
 import {Home} from './containers/Home'
 import {About} from './containers/About'
-import Login from './containers/Login'
+import {Login} from './containers/Login'
 import ProfileContainer from './containers/Profile'
 import Profile from './containers/Profile/Profile'
-import PreDashboard from './containers/PreDashboard'
+import {PreDashboard} from './containers/PreDashboard'
 import CompanyRoot from './containers/CompanyRoot'
 import CreateCompany from './containers/CreateCompany'
 import Dashboard from './containers/Dashboard'
@@ -24,6 +19,9 @@ import DashboardSubscription from './containers/Dashboard/DashboardSubscription'
 import 'bootstrap-loader'
 import '!style!css!sass!./styles/main.scss'
 import 'core-js'
+import {CurrentUserStore} from './stores/currentUserStore'
+import {ServerStore} from './stores/ServerStore'
+import {UserCompaniesStore} from './stores/UserCompaniesStore'
 
 // General Typescript+Redux:
 // https://rjzaworski.com/2016/08/typescript-redux-and-react
@@ -32,16 +30,15 @@ import 'core-js'
 
 declare const window: any
 
-const store = createStore(reducers, {}, compose(
-  applyMiddleware(thunk, promiseMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-))
+const currentUserStore = new CurrentUserStore()
+const serverStore = new ServerStore()
+const userCompaniesStore = new UserCompaniesStore()
 
 ReactDOM.render((
   // Reference for middleware is not a function error
   // https://github.com/reactjs/redux/issues/533
-  <Provider store={store}>
-    <Router history={syncHistoryWithStore(browserHistory, store)}>
+  <Provider currentUserStore={currentUserStore} serverStore={serverStore} userCompaniesStore={userCompaniesStore}>
+    <Router history={browserHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={Home} />
         <Route path='about' component={About} />

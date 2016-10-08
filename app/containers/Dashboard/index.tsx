@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Link} from 'react-router'
 
-export default class Dashboard extends React.Component<{params: {companyId: number}}, void> {
+export class Dashboard extends React.Component<{params: {companyId: number}}, void> {
 
   render() {
     const companyDashboardUrl = `/company/${this.props.params.companyId}/dashboard`

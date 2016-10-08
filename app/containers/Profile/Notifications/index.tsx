@@ -1,55 +1,37 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {ApplicationState} from '../../../models/ApplicationState'
+import {inject, observer} from 'mobx-react'
+import {CurrentUserStore} from '../../../stores/CurrentUserStore'
 import {IUserPreference} from '../../../models/UserPreference'
 import {fetchUserPreferences, updateUserPreference} from '../../../actions/userPreference'
 import {UserPreferenceRow, IUserPreferenceValueChange} from './UserPreferenceRow'
 
-interface StateProps {
-  userPreferences: IUserPreference[]
+interface StoreProps {
+  currentUserStore?: CurrentUserStore
 }
 
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    userPreferences: state.userPreferences
-  }
-}
-
-interface DispatchProps {
-  fetchUserPreferences: Function,
-  updateUserPreference: Function
-}
-
-function mapDispatchToProps(dispatch: any): DispatchProps {
-  return {
-    fetchUserPreferences: bindActionCreators(fetchUserPreferences, dispatch),
-    updateUserPreference: bindActionCreators(updateUserPreference, dispatch)
-  }
-}
-
-class Notifications extends React.Component<StateProps & DispatchProps, void> {
+@inject('currentUserStore')
+@observer
+export class Notifications extends React.Component<StoreProps, void> {
 
   componentDidMount() {
-    this.props.fetchUserPreferences()
+    this.props.currentUserStore!.getUserPreferences()
   }
 
   save(change: IUserPreferenceValueChange) {
-    this.props.updateUserPreference(change, (error: any) => {
-      if (error) {
-        console.log(error)
-      } else {
-        this.props.fetchUserPreferences()
-      }
+    this.props.currentUserStore!.updateUserPreference(change).catch(error => {
+      console.log(error)
     })
   }
 
   render() {
+    const userPreferences = this.props.currentUserStore!.userPreferences
+    if (!userPreferences) {
+      return <div>Loading...</div>
+    }
     return (
       <table className='table'>
         <tbody>
-          {this.props.userPreferences.map(userPreference =>
+          {this.props.currentUserStore!.userPreferences!.map(userPreference =>
             <UserPreferenceRow key={userPreference.preference.id} userPreference={userPreference} onDifferentValueClick={this.save.bind(this)} />
           )}
         </tbody>
@@ -58,5 +40,3 @@ class Notifications extends React.Component<StateProps & DispatchProps, void> {
   }
 
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

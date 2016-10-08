@@ -1,15 +1,16 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
+import {inject, observer} from 'mobx-react'
 import {browserHistory} from 'react-router'
-import {IAction} from '../actions/actions'
-import {createCompany, CREATE_COMPANY_REQUEST} from '../actions/company'
+import {CurrentCompanyStore} from '../stores/CurrentCompanyStore'
 import {ICreateCompany} from '../models/Company'
 
-interface DispatchProps {
-  createCompany: (createObject: ICreateCompany) => Promise<IAction<CREATE_COMPANY_REQUEST>>
+interface StoreProps {
+  currentCompanyStore?: CurrentCompanyStore
 }
 
-class CreateCompany extends React.Component<DispatchProps, void> {
+@inject('currentCompanyStore')
+@observer
+export class CreateCompany extends React.Component<StoreProps, void> {
 
   private nameInput: HTMLInputElement
   private descriptionInput: HTMLInputElement
@@ -20,15 +21,11 @@ class CreateCompany extends React.Component<DispatchProps, void> {
     const name = this.nameInput.value
     const description = this.descriptionInput.value
 
-    this.props.createCompany({
+    this.props.currentCompanyStore!.create({
       name: name,
       description: description
-    }).then(action => {
-      if (action.error) {
-        console.log(action.error)
-      } else {
-        browserHistory.push(`/company/${action.payload.id}/dashboard`)
-      }
+    }).then(company => {
+      browserHistory.push(`/company/${company.id}/dashboard`)
     })
   }
 
@@ -66,5 +63,3 @@ class CreateCompany extends React.Component<DispatchProps, void> {
   }
 
 }
-
-export default connect(null, {createCompany})(CreateCompany)

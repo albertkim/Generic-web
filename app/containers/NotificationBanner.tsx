@@ -26,6 +26,7 @@ export class NotificationBanner extends React.Component<StateProps, {show: boole
   }
 
   getBody() {
+    const user = this.props.currentUserStore!.currentUser
     const closeButton = <a style={{marginLeft: '2em', marginRight: '2em'}} onClick={() => this.close()}>Close</a>
 
     if (this.state.show === false) {
@@ -34,7 +35,7 @@ export class NotificationBanner extends React.Component<StateProps, {show: boole
         <span />
       )
 
-    } else if (this.props.serverStore.isConnectedToServer === 'Disconnected') {
+    } else if (this.props.serverStore!.isConnectedToServer === 'Disconnected') {
 
       return (
         <div id='server-connection-notification-banner'>
@@ -43,13 +44,13 @@ export class NotificationBanner extends React.Component<StateProps, {show: boole
         </div>
       )
 
-    } else if (!this.props.currentUserStore.currentUser) {
+    } else if (!user) {
 
       return (
         <span />
       )
 
-    } else if (this.props.currentUserStore.currentUser.isEmailVerified === false) {
+    } else if (user.isEmailVerified === false) {
 
       return (
         <div id='verify-email-notification-banner'>

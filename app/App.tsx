@@ -18,8 +18,8 @@ export class App extends React.Component<StoreProps, void> {
 
   componentDidMount() {
     // this.props.fetchCurrentUser()
-    this.props.currentUserStore.getCurrentUser()
-    this.props.serverStore.connectToServer()
+    this.props.currentUserStore!.getCurrentUser()
+    this.props.serverStore!.connectToServer()
   }
 
   render() {

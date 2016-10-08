@@ -1,20 +1,12 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
-import {ApplicationState} from '../../../models/ApplicationState'
-import {User} from '../../../models/User'
-import {fetchCurrentUser} from '../../../actions/actions'
-import {updateUser} from '../../../actions/user'
+import {inject, observer} from 'mobx-react'
+import {CurrentUserStore} from '../../../stores/CurrentUserStore'
 import {EmailDisplayRow} from './EmailRow'
 import {NameDisplayRow, NameEditRow} from './NameRow'
 import {PhoneDisplayRow, PhoneEditRow} from './PhoneRow'
 
-interface StateProps {
-  user?: User
-}
-
-interface DispatchProps {
-  fetchCurrentUser: Function,
-  updateUser: Function
+interface StoreProps {
+  currentUserStore?: CurrentUserStore
 }
 
 interface OwnState {
@@ -22,13 +14,9 @@ interface OwnState {
   isPhoneEdit: boolean
 }
 
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    user: state.user
-  }
-}
-
-class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
+@inject('currentUserStore')
+@observer
+export class BasicInfo extends React.Component<StoreProps, OwnState> {
 
   constructor() {
     super()
@@ -39,7 +27,7 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
   }
 
   componentDidMount() {
-    this.props.fetchCurrentUser()
+    this.props.currentUserStore!.getCurrentUser()
   }
 
   toggleEdit(field: string) {
@@ -57,21 +45,19 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
   }
 
   save(updateObject: any) {
-    this.props.updateUser(updateObject, (error: any, response: any) => {
-      if (error) {
-        console.log(error)
-      } else {
-        this.props.fetchCurrentUser()
-        this.setState({
-          isNameEdit: false,
-          isPhoneEdit: false
-        })
-      }
+    this.props.currentUserStore!.updateUser(updateObject).then(() => {
+      this.props.currentUserStore!.getCurrentUser()
+      this.setState({
+        isNameEdit: false,
+        isPhoneEdit: false
+      })
+    }).catch(error => {
+      console.log(error)
     })
   }
 
   render() {
-    if (!this.props.user) {
+    if (!this.props.currentUserStore!.currentUser) {
       return (
         <div className='container-fluid'>
           <div className='row'>
@@ -83,35 +69,37 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
       )
     }
 
+    const user = this.props.currentUserStore!.currentUser!
+
     const nameRow = this.state.isNameEdit ?
-      <NameEditRow name={this.props.user.name}
+      <NameEditRow name={user.name}
                    onClickSave={this.save.bind(this)}
                    onClickCancel={this.toggleEdit.bind(this, 'name')} /> :
-      <NameDisplayRow name={this.props.user.name} onClickEdit={this.toggleEdit.bind(this, 'name')} />
+      <NameDisplayRow name={user.name} onClickEdit={this.toggleEdit.bind(this, 'name')} />
 
     const phoneRow = this.state.isPhoneEdit ?
-      <PhoneEditRow phone={this.props.user.phone}
-                    isPhoneVerified={this.props.user.isPhoneVerified}
+      <PhoneEditRow phone={user.phone}
+                    isPhoneVerified={user.isPhoneVerified}
                     onClickSave={this.save.bind(this)}
                     onClickCancel={this.toggleEdit.bind(this, 'phone')} /> :
-      <PhoneDisplayRow phone={this.props.user.phone}
-                       isPhoneVerified={this.props.user.isPhoneVerified}
+      <PhoneDisplayRow phone={user.phone}
+                       isPhoneVerified={user.isPhoneVerified}
                        onClickEdit={this.toggleEdit.bind(this, 'phone')} />
 
     return (
       <table className='table'>
         <tbody>
-          <EmailDisplayRow email={this.props.user.email} isEmailVerified={this.props.user.isEmailVerified} />
+          <EmailDisplayRow email={user.email} isEmailVerified={user.isPhoneVerified} />
           {nameRow}
           {phoneRow}
           <tr>
             <td>Facebook</td>
-            <td>{this.props.user.facebookId || 'No account linked yet'}</td>
+            <td>{user.facebookId || 'No account linked yet'}</td>
             <td><a href='#'>Link</a></td>
           </tr>
           <tr>
             <td>Google</td>
-            <td>{this.props.user.googleId || 'No account linked yet'}</td>
+            <td>{user.googleId || 'No account linked yet'}</td>
             <td><a href='#'>Link</a></td>
           </tr>
         </tbody>
@@ -120,5 +108,3 @@ class Profile extends React.Component<StateProps & DispatchProps, OwnState> {
   }
 
 }
-
-export default connect(mapStateToProps, {fetchCurrentUser, updateUser})(Profile)

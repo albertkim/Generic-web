@@ -5,8 +5,8 @@ import {browserHistory} from 'react-router'
 import {CurrentUserStore} from '../stores/CurrentUserStore'
 
 interface OwnProps {
-  loginError: string
-  registerError: string
+  loginError?: string
+  registerError?: string
 }
 
 interface StoreProps {
@@ -24,8 +24,8 @@ export class Login extends React.Component<StoreProps, OwnProps> {
   constructor() {
     super()
     this.state = {
-      loginError: null,
-      registerError: null
+      loginError: undefined,
+      registerError: undefined
     }
   }
 

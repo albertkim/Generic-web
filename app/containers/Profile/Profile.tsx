@@ -1,8 +1,8 @@
 import * as React from 'react'
-import BasicInfo from './BasicInfo'
-import Notifications from './Notifications'
+import {BasicInfo} from './BasicInfo'
+import {Notifications} from './Notifications'
 
-export default class Profile extends React.Component<void, void> {
+export class Profile extends React.Component<void, void> {
 
   render() {
     return (

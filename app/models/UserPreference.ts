@@ -8,3 +8,8 @@ export interface IUserPreference {
   },
   value: boolean
 }
+
+export interface IUpdateUserPreference {
+  preferenceId: number,
+  value: boolean
+}

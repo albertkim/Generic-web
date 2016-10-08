@@ -1,34 +1,23 @@
 import * as React from 'react'
-import {connect} from 'react-redux'
+import {inject, observer} from 'mobx-react'
 import {getCompany} from '../actions/company'
-import {ApplicationState} from '../models/ApplicationState'
+import {CurrentCompanyStore} from '../stores/CurrentCompanyStore'
 import {Company} from '../models/Company'
 
-interface OwnProps {
+interface Props {
+  currentCompanyStore?: CurrentCompanyStore
   params: any
 }
 
-interface StateProps {
-  company: Company
-}
-
-function mapStateToProps(state: ApplicationState): StateProps {
-  return {
-    company: state.company
-  }
-}
-
-interface DispatchProps {
-  getCompany: Function
-}
-
-class CompanyRoot extends React.Component<StateProps & DispatchProps & OwnProps, void> {
+@inject('currentCompanyStore')
+@observer
+export class CompanyRoot extends React.Component<Props, void> {
   componentDidMount() {
-    this.props.getCompany(this.props.params.companyId)
+    this.props.currentCompanyStore!.getById(this.props.params.companyId)
   }
 
   render() {
-    if (!this.props.company) {
+    if (!this.props.currentCompanyStore!.company) {
       return (
         <div>
           <span>Loading...</span>
@@ -43,5 +32,3 @@ class CompanyRoot extends React.Component<StateProps & DispatchProps & OwnProps,
     }
   }
 }
-
-export default connect(mapStateToProps, {getCompany})(CompanyRoot)

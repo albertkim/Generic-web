@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Profile from './Profile'
+import {Profile} from './Profile'
 
-export default class ProfileContainer extends React.Component<void, void> {
+export class ProfileContainer extends React.Component<void, void> {
 
   render() {
     return (
